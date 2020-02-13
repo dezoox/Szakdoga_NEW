@@ -16,20 +16,23 @@ public class Enemy : MonoBehaviour
         damageAmount = 17;
     }
 
-    
+
     void Update()
     {
-        
+
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             timer += Time.deltaTime;
             if (timer > timeBetweenAttacks)
             {
                 Player player = other.GetComponent<Player>();
-                player.DamagePlayer(damageAmount);
+                if (player != null)
+                {
+                    player.DamagePlayer(damageAmount);
+                }
                 timer = 0.0f;
             }
         }
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour
     public void DamageEnemy(int damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             Destroy(this.gameObject);
         }

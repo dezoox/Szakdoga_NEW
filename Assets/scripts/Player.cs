@@ -36,7 +36,10 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
         Vector3 velocity = direction * speed;
         velocity.y -= gravity;  //apply gravity
-        characterController.Move(velocity * Time.deltaTime);
+        if (characterController != null)
+        {
+            characterController.Move(velocity * Time.deltaTime);
+        }
     }
 
     public void DamagePlayer(int damageAmount)
@@ -45,7 +48,7 @@ public class Player : MonoBehaviour
         if (healthPoints < 0)
         {
             healthPoints = 0;
-            Die();
+            Destroy(this.gameObject);
         }
     }
     public void SpendMana(int spentMana)
@@ -68,10 +71,6 @@ public class Player : MonoBehaviour
     {
         return manaPoints - manaCost > 0;
     }
-    private void Die()
-    {
-        Destroy(this.gameObject);
-    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -81,7 +80,10 @@ public class Player : MonoBehaviour
             if (timer > timeBetweenAttacks)
             {
                 Enemy enemy = other.GetComponent<Enemy>();
-                enemy.DamageEnemy(damageDealt);
+                if (enemy != null)
+                {
+                    enemy.DamageEnemy(damageDealt);
+                }
                 timer = 0.0f;
             }
         }
