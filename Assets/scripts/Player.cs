@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    Vector2 input;
+    private float speed = 5.0f;
+
     private CharacterController characterController;
-    private float gravity = 9.81f;
-    [SerializeField]
-    private float speed = 3.5f;
+    private CameraController cameraController;
     private float timeBetweenAttacks = 2.5f;
     private float timer = 0;
 
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         healthPoints = 100;
         manaPoints = 100;
         damageDealt = 10;
@@ -31,15 +33,17 @@ public class Player : MonoBehaviour
     }
     void Movement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
-        Vector3 velocity = direction * speed;
-        velocity.y -= gravity;  //apply gravity
-        if (characterController != null)
-        {
-            characterController.Move(velocity * Time.deltaTime);
-        }
+        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        input = Vector2.ClampMagnitude(input, 1);
+
+        Vector3 forwardDirection = Camera.main.transform.forward;
+        Vector3 rightDirection = Camera.main.transform.right;
+        forwardDirection.y = 0;
+        rightDirection.y = 0;
+        forwardDirection = forwardDirection.normalized;
+        rightDirection = rightDirection.normalized;
+
+        transform.position += (forwardDirection * input.y + rightDirection * input.x) * Time.deltaTime * speed;
     }
 
     public void DamagePlayer(int damageAmount)

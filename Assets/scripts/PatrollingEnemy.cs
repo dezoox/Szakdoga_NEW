@@ -11,16 +11,16 @@ public class PatrollingEnemy : MonoBehaviour
     private float rotationSpeed = 100f;
     private float rotationWaitTime = 0.5f;
 
-    
-
     private bool isWandering = false;
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
 
+    public GameObject targetToFollow;
+
     void Start()
     {
-
+        targetToFollow = GameObject.Find("Player");
     }
     void Update()
     {
@@ -55,13 +55,13 @@ public class PatrollingEnemy : MonoBehaviour
         yield return new WaitForSeconds(walkTime);
         isWalking = false;
         yield return new WaitForSeconds(rotationWaitTime);
-        if(rotateLeftOrRight == 1)
+        if (rotateLeftOrRight == 1)
         {
             isRotatingRight = true;
             yield return new WaitForSeconds(rotationTime);
             isRotatingRight = false;
         }
-        if(rotateLeftOrRight == 2)
+        if (rotateLeftOrRight == 2)
         {
             isRotatingLeft = true;
             yield return new WaitForSeconds(rotationTime);

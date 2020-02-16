@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b3e5164b00faa498f59e5443eabf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.5
+  camPivot: {fileID: 0}
   healthPoints: 0
   manaPoints: 0
+  damageDealt: 0
