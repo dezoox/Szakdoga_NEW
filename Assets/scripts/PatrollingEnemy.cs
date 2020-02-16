@@ -1,39 +1,72 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class PatrollingEnemy : MonoBehaviour
 {
-    //private float wanderRange;
-    //private float wanderTime;
+    private float movementSpeed = 2.0f;
+    private float rotationSpeed = 100f;
+    private float rotationWaitTime = 0.5f;
 
-    //private Transform target;
-    //private NavMeshAgent agent;
-    //private float timer;
+    
 
-    //void OnEnable()
-    //{
-    //    agent = GetComponent<NavMeshAgent>();
-    //    timer = wanderTime;
-    //}
-    //void Update()
-    //{
-    //    timer += Time.deltaTime;
-    //    if (timer >= wanderTime)
-    //    {
-    //        Vector3 newPosition = WanderingRandomPosition(transform.position, wanderRange, -1);
-    //        agent.SetDestination(newPosition);
-    //        timer = 0;
-    //    }
-    //}
+    private bool isWandering = false;
+    private bool isRotatingLeft = false;
+    private bool isRotatingRight = false;
+    private bool isWalking = false;
 
-    //private Vector3 WanderingRandomPosition(Vector3 origin, float distance, int layermask)
-    //{
-    //    Vector3 RandomDirection = Random.insideUnitSphere * distance;
-    //    RandomDirection += origin;
-    //    NavMeshHit navHit;
-    //    NavMesh.SamplePosition(RandomDirection, out navHit, distance, layermask);
-    //    return navHit.position;
-    //}
+    void Start()
+    {
+
+    }
+    void Update()
+    {
+        if (!isWandering)
+        {
+            StartCoroutine(Wander());
+        }
+        if (isRotatingRight)
+        {
+            transform.Rotate(transform.up * Time.deltaTime * rotationSpeed);
+        }
+        if (isRotatingLeft)
+        {
+            transform.Rotate(transform.up * Time.deltaTime * -rotationSpeed);
+        }
+        if (isWalking)
+        {
+            transform.position += transform.forward * movementSpeed * Time.deltaTime;
+        }
+    }
+
+    private IEnumerator Wander()
+    {
+        int rotationTime = Random.Range(1, 3);
+        int rotateLeftOrRight = Random.Range(1, 3);
+        int walkWait = Random.Range(1, 3);
+        int walkTime = Random.Range(1, 5);
+
+        isWandering = true;
+        yield return new WaitForSeconds(walkWait);
+        isWalking = true;
+        yield return new WaitForSeconds(walkTime);
+        isWalking = false;
+        yield return new WaitForSeconds(rotationWaitTime);
+        if(rotateLeftOrRight == 1)
+        {
+            isRotatingRight = true;
+            yield return new WaitForSeconds(rotationTime);
+            isRotatingRight = false;
+        }
+        if(rotateLeftOrRight == 2)
+        {
+            isRotatingLeft = true;
+            yield return new WaitForSeconds(rotationTime);
+            isRotatingLeft = false;
+        }
+        isWandering = false;
+    }
 }
