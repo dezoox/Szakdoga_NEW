@@ -1,0 +1,40 @@
+3d karakter megmozgatása és animáció
+	- alap mozgások
+	- támadások
+	- (síkon és térben)
+Karakterlap
+	- Életerő, mana, ...
+Inventory
+	- Tárgyak kezelése
+	
+Terület elkészítése
+	- nem csak sík!
+	
+Ellenfelek
+	- Csak verekedős agresszív csávó
+	- Őr (forog és figyel egy bizonyos ívben)
+	- Olyan, aki tud lőni
+	- ...
+	
+NPC rendszer
+	- Quest-ek tárolása
+	- Quest elfogadása
+	- Jutalomrendszer
+	- Questek kezelése a játékos egy almenüjéből
+____________________________________________________________________________________________________________________________
+player:
+		-gold, tapasztalat, fa, kő, fém, ezeket imageban megjeleníteni a képernyőn alapból is
+
+karakterlap:
+		-image, inventory assettel pl
+		- életerő egy piros csík, mana egy kék csík
+terület:
+		-terrain generálása
+npc:
+		-kapszulák egyelőre, ha a player beleér a rigidbody-ba, akkor egy felkiáltójel (image) besárgul, és 				megnyílik egy kisebb ablak, ami a küldetést tartalmazza
+		
+ellenfél:	-kapszula, ami patrollingol valahol, és ha elég közel mész, megtámad
+
+
+ÉSZREVÉTELEK:
+		-Ha majd lesz pálya, navigation meshhel beállítani azt, ahol lehet mozogni.
