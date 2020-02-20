@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2328961099159298965}
   - component: {fileID: 7111284571071204520}
   - component: {fileID: 1879259457640345456}
+  - component: {fileID: 3403206247017531257}
   m_Layer: 0
   m_Name: Enemy_Patrolling
   m_TagString: Enemy
@@ -108,7 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicMaterial: {fileID: 2100000, guid: 6cf776b9212fe7d4abe3da87f91f77f0, type: 2}
   hurtMaterial: {fileID: 2100000, guid: 68acbe2681bd5d2428110985bf89c6e7, type: 2}
-  targetToFollow: {fileID: 0}
+  isWandering: 0
+  health: 0
+  damageAmount: 0
 --- !u!54 &1879259457640345456
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,3 +128,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!136 &3403206247017531257
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4088922671570521781}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
