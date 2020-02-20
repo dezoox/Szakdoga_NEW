@@ -106,6 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43e86c53a525a864195d86cfccc86e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicMaterial: {fileID: 2100000, guid: 6cf776b9212fe7d4abe3da87f91f77f0, type: 2}
+  hurtMaterial: {fileID: 2100000, guid: 68acbe2681bd5d2428110985bf89c6e7, type: 2}
   targetToFollow: {fileID: 0}
 --- !u!54 &1879259457640345456
 Rigidbody:

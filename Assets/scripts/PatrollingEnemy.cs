@@ -7,38 +7,65 @@ using Random = UnityEngine.Random;
 
 public class PatrollingEnemy : MonoBehaviour
 {
-    private float movementSpeed = 2.0f;
+    public Material basicMaterial;
+    public Material hurtMaterial;
+    Renderer rend;
+
+    private float movementSpeed = 3.0f;
     private float rotationSpeed = 100f;
     private float rotationWaitTime = 0.5f;
 
+    [SerializeField]
     private bool isWandering = false;
+    [SerializeField]
+    private bool isFighting = false;
+
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
 
-    public GameObject targetToFollow;
+
+    private GameObject player;
+    private float recognizeRange = 10.0f;
+    private float timer;
+    private float timeBetweenAttacks = 2.6f;
+    [SerializeField]
+    private int health;
+    [SerializeField]
+    private int damageAmount;
 
     void Start()
     {
-        targetToFollow = GameObject.Find("Player");
+        rend = GetComponent<Renderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        health = 100;
+        damageAmount = 17;
     }
     void Update()
     {
-        if (!isWandering)
+        if (RecognizePlayer())
         {
-            StartCoroutine(Wander());
+            isWandering = false;
+            ChasePlayer();
         }
-        if (isRotatingRight)
+        else
         {
-            transform.Rotate(transform.up * Time.deltaTime * rotationSpeed);
-        }
-        if (isRotatingLeft)
-        {
-            transform.Rotate(transform.up * Time.deltaTime * -rotationSpeed);
-        }
-        if (isWalking)
-        {
-            transform.position += transform.forward * movementSpeed * Time.deltaTime;
+            if(!isWandering && !isFighting)
+            {
+                StartCoroutine(Wander());
+            }
+            if (isRotatingRight)
+            {
+                transform.Rotate(transform.up * Time.deltaTime * rotationSpeed);
+            }
+            if (isRotatingLeft)
+            {
+                transform.Rotate(transform.up * Time.deltaTime * -rotationSpeed);
+            }
+            if (isWalking)
+            {
+                transform.position += transform.forward * movementSpeed * Time.deltaTime;
+            }
         }
     }
 
@@ -68,5 +95,62 @@ public class PatrollingEnemy : MonoBehaviour
             isRotatingLeft = false;
         }
         isWandering = false;
+    }
+
+    public void DamageEnemy(int damage)
+    {
+        health -= damage;
+        if (rend != null)
+        {
+            StartCoroutine(ChangeMaterial());
+        }
+        if (health <= 0)
+        {
+            isFighting = false;
+            Destroy(this.gameObject);
+        }
+    }
+
+    private IEnumerator ChangeMaterial()
+    {
+        rend.material = hurtMaterial;
+        yield return new WaitForSeconds(1.0f);
+        rend.material = basicMaterial;
+    }
+
+    private void ChasePlayer()
+    {
+        Vector3 direction = player.transform.position - this.transform.position;
+        direction.y = 0;
+
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+
+        if (direction.magnitude > 2)
+        {
+            this.transform.Translate(0, 0, 0.05f);
+        }
+    }
+
+    private bool RecognizePlayer()
+    {
+        return Vector3.Distance(player.transform.position, this.transform.position) < recognizeRange;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            //isFighting = true;
+            timer += Time.deltaTime;
+            if (timer > timeBetweenAttacks)
+            {
+                Player player = other.GetComponent<Player>();
+                if (player != null)
+                {
+                    player.DamagePlayer(damageAmount);
+                }
+                timer = 0.0f;
+            }
+        }
     }
 }

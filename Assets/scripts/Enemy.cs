@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Material basicMaterial;
+    public Material hurtMaterial;
+    Renderer rend;
+
     [SerializeField]
     private int health;
     [SerializeField]
@@ -14,6 +18,7 @@ public class Enemy : MonoBehaviour
     {
         health = 100;
         damageAmount = 17;
+        rend = GetComponent<Renderer>();
     }
 
 
@@ -36,14 +41,26 @@ public class Enemy : MonoBehaviour
                 timer = 0.0f;
             }
         }
+
     }
 
     public void DamageEnemy(int damage)
     {
         health -= damage;
+        if (rend != null)
+        {
+            StartCoroutine(ChangeMaterial());
+        }
         if (health <= 0)
         {
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator ChangeMaterial()
+    {
+        rend.material = hurtMaterial;
+        yield return new WaitForSeconds(1.0f);
+        rend.material = basicMaterial;
     }
 }

@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Vector2 input;
+    public Material basicMaterial;
+    public Material hurtMaterial;
     private float speed = 5.0f;
 
-    private CharacterController characterController;
-    private CameraController cameraController;
     private float timeBetweenAttacks = 2.5f;
     private float timer = 0;
+
+    private bool isCameraRotates = false;
+    private float mouseSpeed = 50.0f;
+    Renderer rend;
 
     //HP system
     public int healthPoints;
@@ -20,35 +23,37 @@ public class Player : MonoBehaviour
     private int damageDealt;
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         healthPoints = 100;
         manaPoints = 100;
         damageDealt = 10;
+        rend = GetComponent<Renderer>();
     }
 
     void Update()
     {
-        Movement();
+        transform.position += Input.GetAxis("Horizontal") * transform.right * speed * Time.deltaTime;
+        transform.position += Input.GetAxis("Vertical") * transform.forward * speed * Time.deltaTime;
+
+        if (isCameraRotates)
+        {
+            transform.Rotate(transform.up, Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            isCameraRotates = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            isCameraRotates = false;
+        }
     }
-    void Movement()
-    {
-        input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        input = Vector2.ClampMagnitude(input, 1);
-
-        Vector3 forwardDirection = Camera.main.transform.forward;
-        Vector3 rightDirection = Camera.main.transform.right;
-        forwardDirection.y = 0;
-        rightDirection.y = 0;
-        forwardDirection = forwardDirection.normalized;
-        rightDirection = rightDirection.normalized;
-
-        transform.position += (forwardDirection * input.y + rightDirection * input.x) * Time.deltaTime * speed;
-    }
-
     public void DamagePlayer(int damageAmount)
     {
         healthPoints -= damageAmount;
+        if(rend != null)
+        {
+            StartCoroutine(ChangeMaterial());
+        }
         if (healthPoints < 0)
         {
             healthPoints = 0;
@@ -91,5 +96,25 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
+        if (other.tag == "PatrollingEnemy")
+        {
+            timer += Time.deltaTime;
+            if (timer > timeBetweenAttacks)
+            {
+                PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
+                if (enemy != null)
+                {
+                    enemy.DamageEnemy(damageDealt);
+                }
+                timer = 0.0f;
+            }
+        }
+    }
+
+    IEnumerator ChangeMaterial()
+    {
+        rend.material = hurtMaterial;
+        yield return new WaitForSeconds(1.0f);
+        rend.material = basicMaterial;
     }
 }

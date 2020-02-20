@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Inventory
   - ItemDatabase
+  - PatrollingEnemy
   layers:
   - Default
   - TransparentFX
