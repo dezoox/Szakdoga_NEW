@@ -17,8 +17,6 @@ public class PatrollingEnemy : MonoBehaviour
 
     [SerializeField]
     private bool isWandering = false;
-    [SerializeField]
-    private bool isFighting = false;
 
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
@@ -31,6 +29,7 @@ public class PatrollingEnemy : MonoBehaviour
     private float timeBetweenAttacks = 2.6f;
     [SerializeField]
     private int health;
+    private int maxHealth = 100;
     [SerializeField]
     private int damageAmount;
 
@@ -38,7 +37,7 @@ public class PatrollingEnemy : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         player = GameObject.FindGameObjectWithTag("Player");
-        health = 100;
+        health = maxHealth;
         damageAmount = 17;
     }
     void Update()
@@ -50,7 +49,7 @@ public class PatrollingEnemy : MonoBehaviour
         }
         else
         {
-            if(!isWandering && !isFighting)
+            if(!isWandering)
             {
                 StartCoroutine(Wander());
             }
@@ -106,7 +105,6 @@ public class PatrollingEnemy : MonoBehaviour
         }
         if (health <= 0)
         {
-            isFighting = false;
             Destroy(this.gameObject);
         }
     }
@@ -140,7 +138,6 @@ public class PatrollingEnemy : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //isFighting = true;
             timer += Time.deltaTime;
             if (timer > timeBetweenAttacks)
             {

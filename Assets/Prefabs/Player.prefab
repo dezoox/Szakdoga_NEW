@@ -179,8 +179,10 @@ MonoBehaviour:
   basicMaterial: {fileID: 2100000, guid: a8b701df5c732144aa614107ca60018c, type: 2}
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
   healthPoints: 0
+  maxHealth: 100
   manaPoints: 0
   damageDealt: 0
+  Healthbar: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0

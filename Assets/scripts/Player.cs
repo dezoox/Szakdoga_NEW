@@ -16,14 +16,17 @@ public class Player : MonoBehaviour
     Renderer rend;
 
     //HP system
-    public int healthPoints;
+    public float healthPoints;
+    public float maxHealth = 100f;
     [SerializeField]
     private int manaPoints;
     [SerializeField]
     private int damageDealt;
+    public Transform Healthbar;
+
     void Start()
     {
-        healthPoints = 100;
+        healthPoints = maxHealth;
         manaPoints = 100;
         damageDealt = 10;
         rend = GetComponent<Renderer>();
@@ -50,6 +53,7 @@ public class Player : MonoBehaviour
     public void DamagePlayer(int damageAmount)
     {
         healthPoints -= damageAmount;
+        Healthbar.transform.localScale = new Vector3(healthPoints / maxHealth, 1.0f, 1.0f);
         if(rend != null)
         {
             StartCoroutine(ChangeMaterial());

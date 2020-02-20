@@ -10,13 +10,14 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private int health;
+    private int maxHealth = 100;
     [SerializeField]
     private int damageAmount;
     private float timeBetweenAttacks = 2.6f;
     private float timer = 0;
     void Start()
     {
-        health = 100;
+        health = maxHealth;
         damageAmount = 17;
         rend = GetComponent<Renderer>();
     }
