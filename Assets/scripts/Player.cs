@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;
-    private float speed = 5.0f;
+    private float movementSpeed = 5.0f;
 
     private float timeBetweenAttacks = 2.5f;
     private float timer = 0;
@@ -15,24 +15,26 @@ public class Player : MonoBehaviour
     private float mouseSpeed = 50.0f;
     Renderer rend;
     [SerializeField]
-    private int damageDealt;
+    private int playerDamage;
 
     //HP and MANA system
-    public float healthPoints;
-    public float maxHealth = 100f;
-    public float maxMana = 100;
+    public float playerHealth;
+    public float playerMaxHealth = 100f;
+    public float playerMaxMana = 100;
     [SerializeField]
-    private float manaPoints; 
+    private float playerMana;
     public Transform Healthbar;
     public Transform ManaBar;
 
     private float manaRegeneration = 1.0f / 60f;
 
+
+    public Ranged_attack rangedAttack;
     void Start()
     {
-        healthPoints = maxHealth;
-        manaPoints = maxMana;
-        damageDealt = 10;
+        playerHealth = playerMaxHealth;
+        playerMana = playerMaxMana;
+        playerDamage = 10;
         rend = GetComponent<Renderer>();
     }
 
@@ -40,8 +42,8 @@ public class Player : MonoBehaviour
     {
         getMana(manaRegeneration);
 
-        transform.position += Input.GetAxis("Horizontal") * transform.right * speed * Time.deltaTime;
-        transform.position += Input.GetAxis("Vertical") * transform.forward * speed * Time.deltaTime;
+        transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
+        transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
 
         if (isCameraRotates)
         {
@@ -63,30 +65,42 @@ public class Player : MonoBehaviour
         {
             getMana(10);
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.y = 1.5f;
+
+            if (hasEnoughMana(rangedAttack.manaCost))
+            {
+                Instantiate(rangedAttack, spawnPosition, Quaternion.identity);
+                SpendMana(rangedAttack.manaCost);
+            }
+        }
     }
     public void DamagePlayer(int damageAmount)
     {
-        healthPoints -= damageAmount;
+        playerHealth -= damageAmount;
         RescaleHealthBar();
         if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
         }
-        if (healthPoints < 0)
+        if (playerHealth < 0)
         {
-            healthPoints = 0;
+            playerHealth = 0;
             Destroy(this.gameObject);
         }
     }
-    public void SpendMana(int spentMana)
+    public void SpendMana(float spentMana)
     {
         if (hasEnoughMana(spentMana))
         {
-            manaPoints -= spentMana;
+            playerMana -= spentMana;
             RescaleManaBar();
-            if (manaPoints < 0)
+            if (playerMana < 0)
             {
-                manaPoints = 0;
+                playerMana = 0;
             }
         }
         else
@@ -95,17 +109,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool hasEnoughMana(int manaCost)
+    private bool hasEnoughMana(float manaCost)
     {
-        return manaPoints - manaCost > 0;
+        return playerMana - manaCost > 0;
     }
     private void getMana(float amount)
     {
-        manaPoints += amount;
+        playerMana += amount;
         RescaleManaBar();
-        if(manaPoints > maxMana)
+        if (playerMana > playerMaxMana)
         {
-            manaPoints = maxMana;
+            playerMana = playerMaxMana;
         }
     }
 
@@ -119,7 +133,7 @@ public class Player : MonoBehaviour
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    enemy.DamageEnemy(damageDealt);
+                    enemy.DamageEnemy(playerDamage);
                 }
                 timer = 0.0f;
             }
@@ -132,7 +146,7 @@ public class Player : MonoBehaviour
                 PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
                 if (enemy != null)
                 {
-                    enemy.DamageEnemy(damageDealt);
+                    enemy.DamageEnemy(playerDamage);
                 }
                 timer = 0.0f;
             }
@@ -143,7 +157,7 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Heal")
         {
-            if (healthPoints != maxHealth)
+            if (playerHealth != playerMaxHealth)
             {
                 Destroy(other.gameObject);
                 Heal(70);
@@ -151,23 +165,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Heal(int amount)
+    private void Heal(int amount)
     {
-        healthPoints += amount;
-        if (healthPoints > maxHealth)
+        playerHealth += amount;
+        if (playerHealth > playerMaxHealth)
         {
-            healthPoints = maxHealth;
+            playerHealth = playerMaxHealth;
         }
         RescaleHealthBar();
     }
 
     private void RescaleHealthBar()
     {
-        Healthbar.transform.localScale = new Vector3(healthPoints / maxHealth, 1.0f, 1.0f);
+        Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
     }
     private void RescaleManaBar()
     {
-        ManaBar.transform.localScale = new Vector3(manaPoints / maxMana, 1.0f, 1.0f);
+        ManaBar.transform.localScale = new Vector3(playerMana / playerMaxMana, 1.0f, 1.0f);
     }
     IEnumerator ChangeMaterial()
     {

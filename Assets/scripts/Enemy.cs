@@ -9,17 +9,18 @@ public class Enemy : MonoBehaviour
     Renderer rend;
 
     [SerializeField]
-    private int health;
-    private int maxHealth = 100;
+    private int enemyHealth;
+    private int enemyMaxHealth = 100;
     [SerializeField]
-    private int damageAmount;
+    private int enemyDamage;
     private float timeBetweenAttacks = 2.6f;
     private float timer = 0;
     public GameObject dropHealth;
+
     void Start()
     {
-        health = maxHealth;
-        damageAmount = 17;
+        enemyHealth = enemyMaxHealth;
+        enemyDamage = 17;
         rend = GetComponent<Renderer>();
     }
 
@@ -38,7 +39,7 @@ public class Enemy : MonoBehaviour
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
-                    player.DamagePlayer(damageAmount);
+                    player.DamagePlayer(enemyDamage);
                 }
                 timer = 0.0f;
             }
@@ -48,12 +49,12 @@ public class Enemy : MonoBehaviour
 
     public void DamageEnemy(int damage)
     {
-        health -= damage;
+        enemyHealth -= damage;
         if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
         }
-        if (health <= 0)
+        if (enemyHealth <= 0)
         {
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 1.5f;

@@ -28,10 +28,10 @@ public class PatrollingEnemy : MonoBehaviour
     private float timer;
     private float timeBetweenAttacks = 2.6f;
     [SerializeField]
-    private int health;
-    private int maxHealth = 100;
+    private int enemyHealth;
+    private int enemyMaxHealth = 100;
     [SerializeField]
-    private int damageAmount;
+    private int enemyDamage;
 
     public GameObject dropHealth;
 
@@ -39,8 +39,8 @@ public class PatrollingEnemy : MonoBehaviour
     {
         rend = GetComponent<Renderer>();
         player = GameObject.FindGameObjectWithTag("Player");
-        health = maxHealth;
-        damageAmount = 17;
+        enemyHealth = enemyMaxHealth;
+        enemyDamage = 17;
     }
     void Update()
     {
@@ -100,12 +100,12 @@ public class PatrollingEnemy : MonoBehaviour
 
     public void DamageEnemy(int damage)
     {
-        health -= damage;
+        enemyHealth -= damage;
         if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
         }
-        if (health <= 0)
+        if (enemyHealth <= 0)
         {
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 1.5f;
@@ -150,7 +150,7 @@ public class PatrollingEnemy : MonoBehaviour
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
-                    player.DamagePlayer(damageAmount);
+                    player.DamagePlayer(enemyDamage);
                 }
                 timer = 0.0f;
             }
