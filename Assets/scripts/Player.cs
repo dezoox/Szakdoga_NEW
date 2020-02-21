@@ -14,26 +14,32 @@ public class Player : MonoBehaviour
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
     Renderer rend;
-
-    //HP system
-    public float healthPoints;
-    public float maxHealth = 100f;
-    [SerializeField]
-    private int manaPoints;
     [SerializeField]
     private int damageDealt;
+
+    //HP and MANA system
+    public float healthPoints;
+    public float maxHealth = 100f;
+    public float maxMana = 100;
+    [SerializeField]
+    private float manaPoints; 
     public Transform Healthbar;
+    public Transform ManaBar;
+
+    private float manaRegeneration = 1.0f / 60f;
 
     void Start()
     {
         healthPoints = maxHealth;
-        manaPoints = 100;
+        manaPoints = maxMana;
         damageDealt = 10;
         rend = GetComponent<Renderer>();
     }
 
     void Update()
     {
+        getMana(manaRegeneration);
+
         transform.position += Input.GetAxis("Horizontal") * transform.right * speed * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * speed * Time.deltaTime;
 
@@ -48,6 +54,14 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             isCameraRotates = false;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SpendMana(25);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            getMana(10);
         }
     }
     public void DamagePlayer(int damageAmount)
@@ -69,6 +83,7 @@ public class Player : MonoBehaviour
         if (hasEnoughMana(spentMana))
         {
             manaPoints -= spentMana;
+            RescaleManaBar();
             if (manaPoints < 0)
             {
                 manaPoints = 0;
@@ -83,6 +98,15 @@ public class Player : MonoBehaviour
     private bool hasEnoughMana(int manaCost)
     {
         return manaPoints - manaCost > 0;
+    }
+    private void getMana(float amount)
+    {
+        manaPoints += amount;
+        RescaleManaBar();
+        if(manaPoints > maxMana)
+        {
+            manaPoints = maxMana;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -140,6 +164,10 @@ public class Player : MonoBehaviour
     private void RescaleHealthBar()
     {
         Healthbar.transform.localScale = new Vector3(healthPoints / maxHealth, 1.0f, 1.0f);
+    }
+    private void RescaleManaBar()
+    {
+        ManaBar.transform.localScale = new Vector3(manaPoints / maxMana, 1.0f, 1.0f);
     }
     IEnumerator ChangeMaterial()
     {

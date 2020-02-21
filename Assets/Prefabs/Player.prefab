@@ -182,9 +182,11 @@ MonoBehaviour:
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
   healthPoints: 0
   maxHealth: 100
+  maxMana: 100
   manaPoints: 0
   damageDealt: 0
   Healthbar: {fileID: 0}
+  ManaBar: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212,7 +214,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1872202223
 CapsuleCollider:
