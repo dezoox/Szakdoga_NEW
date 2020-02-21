@@ -33,6 +33,8 @@ public class PatrollingEnemy : MonoBehaviour
     [SerializeField]
     private int damageAmount;
 
+    public GameObject dropHealth;
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -105,6 +107,10 @@ public class PatrollingEnemy : MonoBehaviour
         }
         if (health <= 0)
         {
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.y = 1.5f;
+
+            Instantiate(dropHealth, spawnPosition, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }

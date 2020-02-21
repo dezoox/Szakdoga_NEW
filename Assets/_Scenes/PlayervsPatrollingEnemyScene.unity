@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: Healthbar
       value: 
       objectReference: {fileID: 230569090}
+    - target: {fileID: 1872202222, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
 --- !u!224 &230569090 stripped
@@ -446,12 +450,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8073542473616547839}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2043784928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9087634037391286621, guid: 2bd617c3c272f0145b891121c9d0b969,
-    type: 3}
-  m_PrefabInstance: {fileID: 141693161}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2073032531
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,11 +553,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Patrolling
       objectReference: {fileID: 0}
-    - target: {fileID: 4088922671570521781, guid: b7ab4cefe49583e44b0665f411c1b2e7,
-        type: 3}
-      propertyPath: m_TagString
-      value: PatrollingEnemy
-      objectReference: {fileID: 0}
     - target: {fileID: 29930166485755196, guid: b7ab4cefe49583e44b0665f411c1b2e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -615,16 +608,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 879809907193264269, guid: b7ab4cefe49583e44b0665f411c1b2e7,
+    - target: {fileID: 1879259457640345456, guid: b7ab4cefe49583e44b0665f411c1b2e7,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6cf776b9212fe7d4abe3da87f91f77f0, type: 2}
-    - target: {fileID: 7111284571071204520, guid: b7ab4cefe49583e44b0665f411c1b2e7,
-        type: 3}
-      propertyPath: targetToFollow
-      value: 
-      objectReference: {fileID: 2043784928}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7ab4cefe49583e44b0665f411c1b2e7, type: 3}
 --- !u!1001 &8073542473616547839
