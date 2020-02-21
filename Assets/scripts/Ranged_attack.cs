@@ -26,15 +26,18 @@ public class Ranged_attack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.DamageEnemy(damage);
+                Destroy(this.gameObject);
             }
         }
         if (other.tag == "PatrollingEnemy")
         {
             PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
-            if(enemy != null)
+            if (enemy != null)
             {
                 enemy.DamageEnemy(damage);
+                Destroy(this.gameObject);
             }
         }
     }
+
 }
