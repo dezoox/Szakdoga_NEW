@@ -58,7 +58,6 @@ public class Player : MonoBehaviour
             isCameraRotates = false;
         }
 
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             DamagePlayer(25);
@@ -161,15 +160,8 @@ public class Player : MonoBehaviour
         {
             if (playerHealth < playerMaxHealth)
             {
-                Physics.IgnoreCollision(this.GetComponent<BoxCollider>(), other, false);
-                Physics.IgnoreCollision(this.GetComponent<CapsuleCollider>(), other, false);
-                Destroy(other.gameObject);
                 Heal(70);
-            }
-            else
-            {
-                Physics.IgnoreCollision(this.GetComponent<BoxCollider>(), other);
-                Physics.IgnoreCollision(this.GetComponent<CapsuleCollider>(), other);
+                Destroy(other.gameObject);
             }
         }
     }
