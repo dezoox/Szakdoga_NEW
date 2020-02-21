@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public Transform Healthbar;
     public Transform ManaBar;
 
-    private float manaRegeneration = 1.0f / 60f;
+    private float playerManaRegeneration = 1.0f / 60f;
 
 
     public Ranged_attack rangedAttack;
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        getMana(manaRegeneration);
+        getMana(playerManaRegeneration);
 
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
@@ -57,9 +57,11 @@ public class Player : MonoBehaviour
         {
             isCameraRotates = false;
         }
+
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SpendMana(25);
+            DamagePlayer(25);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -157,10 +159,17 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Heal")
         {
-            if (playerHealth != playerMaxHealth)
+            if (playerHealth < playerMaxHealth)
             {
+                Physics.IgnoreCollision(this.GetComponent<BoxCollider>(), other, false);
+                Physics.IgnoreCollision(this.GetComponent<CapsuleCollider>(), other, false);
                 Destroy(other.gameObject);
                 Heal(70);
+            }
+            else
+            {
+                Physics.IgnoreCollision(this.GetComponent<BoxCollider>(), other);
+                Physics.IgnoreCollision(this.GetComponent<CapsuleCollider>(), other);
             }
         }
     }
