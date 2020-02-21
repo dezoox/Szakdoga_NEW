@@ -53,8 +53,8 @@ public class Player : MonoBehaviour
     public void DamagePlayer(int damageAmount)
     {
         healthPoints -= damageAmount;
-        Healthbar.transform.localScale = new Vector3(healthPoints / maxHealth, 1.0f, 1.0f);
-        if(rend != null)
+        RescaleHealthBar();
+        if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
         }
@@ -115,6 +115,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Heal")
+        {
+            if (healthPoints != maxHealth)
+            {
+                Destroy(other.gameObject);
+                Heal(70);
+            }
+        }
+    }
+
+    void Heal(int amount)
+    {
+        healthPoints += amount;
+        if (healthPoints > maxHealth)
+        {
+            healthPoints = maxHealth;
+        }
+        RescaleHealthBar();
+    }
+
+    private void RescaleHealthBar()
+    {
+        Healthbar.transform.localScale = new Vector3(healthPoints / maxHealth, 1.0f, 1.0f);
+    }
     IEnumerator ChangeMaterial()
     {
         rend.material = hurtMaterial;

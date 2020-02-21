@@ -9,6 +9,7 @@ TagManager:
   - ItemDatabase
   - PatrollingEnemy
   - HealthBar
+  - Heal
   layers:
   - Default
   - TransparentFX

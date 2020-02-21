@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private int damageAmount;
     private float timeBetweenAttacks = 2.6f;
     private float timer = 0;
+    public GameObject dropHealth;
     void Start()
     {
         health = maxHealth;
@@ -54,6 +55,10 @@ public class Enemy : MonoBehaviour
         }
         if (health <= 0)
         {
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.y = 1.5f;
+
+            Instantiate(dropHealth, spawnPosition, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }
