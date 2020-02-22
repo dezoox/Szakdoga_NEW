@@ -5,8 +5,6 @@ using UnityEngine;
 public class VerticalCameraLooking : MonoBehaviour
 {
     private float mouseSpeed = 50f;
-
-
     void Update()
     {
         if (Input.GetMouseButton(1))
