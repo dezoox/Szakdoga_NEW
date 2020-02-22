@@ -32,7 +32,7 @@ public class PatrollingEnemy : MonoBehaviour
     private float enemyHealth;
     private float enemyMaxHealth = 100;
     [SerializeField]
-    private int enemyDamage;
+    private float enemyDamage;
 
     public GameObject dropHealth;
     public GameObject healthBar;
@@ -45,7 +45,7 @@ public class PatrollingEnemy : MonoBehaviour
         rend = GetComponent<Renderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemyHealth = enemyMaxHealth;
-        enemyDamage = 17;
+        enemyDamage = 17f;
     }
     void Update()
     {
@@ -114,17 +114,17 @@ public class PatrollingEnemy : MonoBehaviour
         }
         if (enemyHealth <= 0)
         {
+            
             Vector3 spawnPosition = transform.position;
+            Destroy(this.gameObject);
             spawnPosition.y = 1.5f;
 
-            Instantiate(dropHealth, spawnPosition, Quaternion.identity);
             Player temp = player.GetComponent<Player>();
             if (temp != null)
             {
                 temp.GetExperience(expreienceReward);
             }
-            Destroy(this.gameObject);
-            Destroy(healthBar.gameObject);
+            Instantiate(dropHealth, spawnPosition, Quaternion.identity);
         }
     }
 

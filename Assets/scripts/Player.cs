@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    public void DamagePlayer(int damageAmount)
+    public void DamagePlayer(float damageAmount)
     {
         playerHealth -= damageAmount;
         RescaleHealthBar();
