@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void DamageEnemy(int damage)
+    public void DamageEnemy(float damage)
     {
         enemyHealth -= damage;
         if (rend != null)
@@ -75,7 +75,6 @@ public class Enemy : MonoBehaviour
             }
 
             Destroy(this.gameObject);
-            Destroy(healthBar.gameObject);
         }
     }
 

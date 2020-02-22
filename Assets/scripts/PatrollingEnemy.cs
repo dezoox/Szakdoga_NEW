@@ -105,7 +105,7 @@ public class PatrollingEnemy : MonoBehaviour
         isWandering = false;
     }
 
-    public void DamageEnemy(int damage)
+    public void DamageEnemy(float damage)
     {
         enemyHealth -= damage;
         if (rend != null)

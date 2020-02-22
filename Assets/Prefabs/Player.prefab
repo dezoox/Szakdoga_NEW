@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.19851263, y: -0, z: -0, w: 0.98009837}
-  m_LocalPosition: {x: 0.6161957, y: 3.4842865, z: -4.6175346}
+  m_LocalPosition: {x: 0.6161957, y: 7.61, z: -13.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8993189138350297945}
@@ -57,7 +57,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 26.991467
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8993189138350297945}
+  - component: {fileID: 2082248311}
   m_Layer: 0
   m_Name: CameraVertical
   m_TagString: Untagged
@@ -114,6 +115,18 @@ Transform:
   m_Father: {fileID: 3909460616485298336}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2082248311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6864987716852129860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec66c896842ba748914c699dad37b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9087634037391286621
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,15 +224,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicMaterial: {fileID: 2100000, guid: a8b701df5c732144aa614107ca60018c, type: 2}
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
-  playerDamage: 0
+  rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
+    type: 3}
   playerHealth: 0
   playerMaxHealth: 100
   playerMaxMana: 100
   playerMana: 0
   Healthbar: {fileID: 0}
   ManaBar: {fileID: 0}
-  rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
-    type: 3}
+  playerExperiencePoints: 0
+  playerLevel: 0
+  playerExperienceNeeded: 0
+  playerExperienceBar: {fileID: 0}
+  playerCurrentLevelText: {fileID: 0}
+  playerStats: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0

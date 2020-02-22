@@ -7,16 +7,18 @@ public class Player : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;
+
+    //Player stats
     private float movementSpeed = 5.0f;
+    private float attackSpeed = 2.5f;
+    private float playerDamage = 10f;
+    private float playerManaRegeneration = 1.0f / 60f;
 
-    private float timeBetweenAttacks = 2.5f;
     private float timer = 0;
-
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
     Renderer rend;
-    [SerializeField]
-    private int playerDamage;
+    
     public Ranged_attack rangedAttack;
 
     //HP and MANA system
@@ -27,7 +29,7 @@ public class Player : MonoBehaviour
     public Transform Healthbar;
     public Transform ManaBar;
 
-    private float playerManaRegeneration = 1.0f / 60f;
+    
 
     //Leveling system
     public float playerExperiencePoints;
@@ -36,19 +38,16 @@ public class Player : MonoBehaviour
     public Slider playerExperienceBar;
     public Text playerCurrentLevelText;
 
+    public GameObject playerStats;
+
     void Start()
     {
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
-        playerDamage = 10;
         rend = GetComponent<Renderer>();
-
-        playerExperiencePoints = 0;
-        playerLevel = 1;
-        playerExperienceNeeded = 10;
-        playerExperienceBar.value = playerExperiencePoints;
-        playerExperienceBar.maxValue = playerExperienceNeeded;
-        playerCurrentLevelText.text = "Level: " + playerLevel;
+        
+        setPlayerStartingExp();
+        setPlayerStats();
     }
 
     void Update()
@@ -57,6 +56,15 @@ public class Player : MonoBehaviour
 
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            playerStats.SetActive(true);
+        }
+        else if (Input.GetKeyUp(KeyCode.C))
+        {
+            playerStats.SetActive(false);
+        }
 
         if (isCameraRotates)
         {
@@ -142,7 +150,7 @@ public class Player : MonoBehaviour
         if (other.tag == "Enemy")
         {
             timer += Time.deltaTime;
-            if (timer > timeBetweenAttacks)
+            if (timer > attackSpeed)
             {
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
@@ -155,7 +163,7 @@ public class Player : MonoBehaviour
         if (other.tag == "PatrollingEnemy")
         {
             timer += Time.deltaTime;
-            if (timer > timeBetweenAttacks)
+            if (timer > attackSpeed)
             {
                 PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
                 if (enemy != null)
@@ -228,6 +236,30 @@ public class Player : MonoBehaviour
         RescaleHealthBar();
         playerMaxMana += 10;
         RescaleManaBar();
+    }
 
+    private void setPlayerStartingExp()
+    {
+        playerExperiencePoints = 0;
+        playerLevel = 1;
+        playerExperienceNeeded = 10;
+        playerExperienceBar.value = playerExperiencePoints;
+        playerExperienceBar.maxValue = playerExperienceNeeded;
+        playerCurrentLevelText.text = "Level: " + playerLevel;
+    }
+    private void setPlayerStats()
+    {
+        playerStats.SetActive(true);
+        FindAndWriteText("stat_manaRegeneration", playerManaRegeneration.ToString());
+        FindAndWriteText("stat_movementSpeed", movementSpeed.ToString());
+        FindAndWriteText("stat_damage", playerDamage.ToString());
+        FindAndWriteText("stat_attackSpeed", attackSpeed.ToString());
+        playerStats.SetActive(false);
+    }
+
+    private void FindAndWriteText(string name, string text)
+    {
+        Text temp = GameObject.Find(name).GetComponent<Text>();
+        temp.text = text;
     }
 }
