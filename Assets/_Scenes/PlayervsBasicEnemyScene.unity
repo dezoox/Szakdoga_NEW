@@ -417,6 +417,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1103168293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2082248310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6864987716852129860, guid: 2bd617c3c272f0145b891121c9d0b969,
+    type: 3}
+  m_PrefabInstance: {fileID: 1306369984818757640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2082248311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082248310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec66c896842ba748914c699dad37b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &503111067969766244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -573,5 +591,33 @@ PrefabInstance:
       propertyPath: ManaBar
       value: 
       objectReference: {fileID: 1537348003}
+    - target: {fileID: 963194228, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194228, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+      propertyPath: field of view
+      value: 26.991467
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
