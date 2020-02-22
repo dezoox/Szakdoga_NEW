@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PatrollingEnemy : MonoBehaviour
@@ -28,12 +29,14 @@ public class PatrollingEnemy : MonoBehaviour
     private float timer;
     private float timeBetweenAttacks = 2.6f;
     [SerializeField]
-    private int enemyHealth;
-    private int enemyMaxHealth = 100;
+    private float enemyHealth;
+    private float enemyMaxHealth = 100;
     [SerializeField]
     private int enemyDamage;
 
     public GameObject dropHealth;
+    public GameObject healthBar;
+    public Slider slider;
 
     void Start()
     {
@@ -44,6 +47,8 @@ public class PatrollingEnemy : MonoBehaviour
     }
     void Update()
     {
+        slider.value = getHealthValue();
+
         if (RecognizePlayer())
         {
             isWandering = false;
@@ -51,7 +56,7 @@ public class PatrollingEnemy : MonoBehaviour
         }
         else
         {
-            if(!isWandering)
+            if (!isWandering)
             {
                 StartCoroutine(Wander());
             }
@@ -112,6 +117,7 @@ public class PatrollingEnemy : MonoBehaviour
 
             Instantiate(dropHealth, spawnPosition, Quaternion.identity);
             Destroy(this.gameObject);
+            Destroy(healthBar.gameObject);
         }
     }
 
@@ -155,5 +161,10 @@ public class PatrollingEnemy : MonoBehaviour
                 timer = 0.0f;
             }
         }
+    }
+
+    private float getHealthValue()
+    {
+        return enemyHealth / enemyMaxHealth;
     }
 }

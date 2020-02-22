@@ -21,8 +21,7 @@ public class Player : MonoBehaviour
     public float playerHealth;
     public float playerMaxHealth = 100f;
     public float playerMaxMana = 100;
-    [SerializeField]
-    private float playerMana;
+    public float playerMana;
     public Transform Healthbar;
     public Transform ManaBar;
 

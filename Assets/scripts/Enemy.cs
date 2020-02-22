@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,13 +10,15 @@ public class Enemy : MonoBehaviour
     Renderer rend;
 
     [SerializeField]
-    private int enemyHealth;
-    private int enemyMaxHealth = 100;
+    private float enemyHealth;
+    private float enemyMaxHealth = 100;
     [SerializeField]
     private int enemyDamage;
     private float timeBetweenAttacks = 2.6f;
     private float timer = 0;
     public GameObject dropHealth;
+    public GameObject healthBar;
+    public Slider slider;
 
     void Start()
     {
@@ -27,7 +30,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-
+        slider.value = getHealthValue();
     }
     private void OnTriggerStay(Collider other)
     {
@@ -61,6 +64,7 @@ public class Enemy : MonoBehaviour
 
             Instantiate(dropHealth, spawnPosition, Quaternion.identity);
             Destroy(this.gameObject);
+            Destroy(healthBar.gameObject);
         }
     }
 
@@ -69,5 +73,10 @@ public class Enemy : MonoBehaviour
         rend.material = hurtMaterial;
         yield return new WaitForSeconds(1.0f);
         rend.material = basicMaterial;
+    }
+
+    private float getHealthValue()
+    {
+        return enemyHealth / enemyMaxHealth;
     }
 }
