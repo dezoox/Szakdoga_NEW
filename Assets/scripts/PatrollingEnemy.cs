@@ -38,6 +38,8 @@ public class PatrollingEnemy : MonoBehaviour
     public GameObject healthBar;
     public Slider slider;
 
+    private float expreienceReward = 5f;
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -116,6 +118,11 @@ public class PatrollingEnemy : MonoBehaviour
             spawnPosition.y = 1.5f;
 
             Instantiate(dropHealth, spawnPosition, Quaternion.identity);
+            Player temp = player.GetComponent<Player>();
+            if (temp != null)
+            {
+                temp.GetExperience(expreienceReward);
+            }
             Destroy(this.gameObject);
             Destroy(healthBar.gameObject);
         }

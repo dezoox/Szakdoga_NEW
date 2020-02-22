@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     public Material hurtMaterial;
     Renderer rend;
 
+    GameObject player;
+
     [SerializeField]
     private float enemyHealth;
     private float enemyMaxHealth = 100;
@@ -20,11 +22,14 @@ public class Enemy : MonoBehaviour
     public GameObject healthBar;
     public Slider slider;
 
+    private float expreienceReward = 5f;
+
     void Start()
     {
         enemyHealth = enemyMaxHealth;
         enemyDamage = 17;
         rend = GetComponent<Renderer>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -63,6 +68,12 @@ public class Enemy : MonoBehaviour
             spawnPosition.y = 1.5f;
 
             Instantiate(dropHealth, spawnPosition, Quaternion.identity);
+            Player temp = player.GetComponent<Player>();
+            if (temp != null)
+            {
+                temp.GetExperience(expreienceReward);
+            }
+
             Destroy(this.gameObject);
             Destroy(healthBar.gameObject);
         }

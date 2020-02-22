@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     Renderer rend;
     [SerializeField]
     private int playerDamage;
+    public Ranged_attack rangedAttack;
 
     //HP and MANA system
     public float playerHealth;
@@ -27,14 +29,26 @@ public class Player : MonoBehaviour
 
     private float playerManaRegeneration = 1.0f / 60f;
 
+    //Leveling system
+    public float playerExperiencePoints;
+    public int playerLevel;
+    public float playerExperienceNeeded;
+    public Slider playerExperienceBar;
+    public Text playerCurrentLevelText;
 
-    public Ranged_attack rangedAttack;
     void Start()
     {
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
         playerDamage = 10;
         rend = GetComponent<Renderer>();
+
+        playerExperiencePoints = 0;
+        playerLevel = 1;
+        playerExperienceNeeded = 10;
+        playerExperienceBar.value = playerExperiencePoints;
+        playerExperienceBar.maxValue = playerExperienceNeeded;
+        playerCurrentLevelText.text = "Level: " + playerLevel;
     }
 
     void Update()
@@ -188,5 +202,32 @@ public class Player : MonoBehaviour
         rend.material = hurtMaterial;
         yield return new WaitForSeconds(1.0f);
         rend.material = basicMaterial;
+    }
+
+    public void GetExperience(float amount)
+    {
+        playerExperiencePoints += amount;
+        playerExperienceBar.value = playerExperiencePoints;
+
+        if (playerExperiencePoints >= playerExperienceNeeded)
+        {
+            LevelUp();
+        }
+    }
+    private void LevelUp()
+    {
+        playerExperiencePoints = 0;
+        playerExperienceBar.value = 0;
+        playerExperienceNeeded += 5;
+        playerExperienceBar.maxValue = playerExperienceNeeded;
+
+        playerLevel += 1;
+        playerCurrentLevelText.text = "Level: " + playerLevel.ToString();
+
+        playerMaxHealth += 10;
+        RescaleHealthBar();
+        playerMaxMana += 10;
+        RescaleManaBar();
+
     }
 }
