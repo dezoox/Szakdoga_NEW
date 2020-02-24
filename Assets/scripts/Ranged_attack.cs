@@ -16,17 +16,16 @@ public class Ranged_attack : MonoBehaviour
 
     private int damage = 55;
     private GameObject player;
-
-    private float directionX;
+    private Vector3 direction;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        directionX = player.transform.position.x;
+        direction = player.transform.forward;
     }
 
     void Update()
     {
-        transform.Translate(player.transform.forward * Time.deltaTime * speed);
+        transform.Translate(direction * Time.deltaTime * speed);
     }
 
     private void OnTriggerEnter(Collider other)
