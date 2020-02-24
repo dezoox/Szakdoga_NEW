@@ -105,10 +105,10 @@ public class Player : MonoBehaviour
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 1.5f;
 
-            if (hasEnoughMana(rangedAttack.manaCost))
+            if (hasEnoughMana(rangedAttack.ManaCost))
             {
                 Instantiate(rangedAttack, spawnPosition, Quaternion.identity);
-                SpendMana(rangedAttack.manaCost);
+                SpendMana(rangedAttack.ManaCost);
             }
         }
     }
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
             Heal heal = other.GetComponent<Heal>();
             if(playerHealth < playerMaxHealth && heal != null)
             {
-                Heal(heal.getHealAmount());
+                Heal(heal.HealAmount);
                 Destroy(other.gameObject);
             }
         }
@@ -203,7 +203,7 @@ public class Player : MonoBehaviour
             Heal heal = other.GetComponent<Heal>();
             if (playerHealth < playerMaxHealth && heal != null)
             {
-                Heal(heal.getHealAmount());
+                Heal(heal.HealAmount);
                 Destroy(other.gameObject);
             }
         }

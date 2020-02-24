@@ -6,7 +6,15 @@ public class Heal : MonoBehaviour
 {
     float timer = 0.0f;
     Vector3 rotation = new Vector3(0, 45, 0);
+
     private float healAmount = 70f;
+    public float HealAmount
+    {
+        get
+        {
+            return healAmount;
+        }
+    }
 
     void Update()
     {
@@ -24,9 +32,5 @@ public class Heal : MonoBehaviour
         {
             timer = 0.0f;
         }
-    }
-    public float getHealAmount()
-    {
-        return this.healAmount;
     }
 }
