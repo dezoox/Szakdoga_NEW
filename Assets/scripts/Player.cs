@@ -22,23 +22,35 @@ public class Player : MonoBehaviour
     public Ranged_attack rangedAttack;
 
     //HP and MANA system
-    public float playerHealth;
-    public float playerMaxHealth = 100f;
-    public float playerMaxMana = 100;
-    public float playerMana;
-    public Transform Healthbar;
-    public Transform ManaBar;
+    [SerializeField]
+    private float playerHealth;
+    [SerializeField]
+    private float playerMaxHealth = 100f;
+    [SerializeField]
+    private float playerMaxMana = 100;
+    [SerializeField]
+    private float playerMana;
+    [SerializeField]
+    private Transform Healthbar;
+    [SerializeField]
+    private Transform ManaBar;
 
-    
+
 
     //Leveling system
-    public float playerExperiencePoints;
-    public int playerLevel;
-    public float playerExperienceNeeded;
-    public Slider playerExperienceBar;
-    public Text playerCurrentLevelText;
+    [SerializeField]
+    private float playerExperiencePoints;
+    [SerializeField]
+    private int playerLevel;
+    [SerializeField]
+    private float playerExperienceNeeded;
+    [SerializeField]
+    private Slider playerExperienceBar;
+    [SerializeField]
+    private Text playerCurrentLevelText;
 
-    public GameObject playerStats;
+    [SerializeField]
+    private GameObject playerStats;
 
     void Start()
     {
@@ -173,21 +185,31 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
+        if(other.tag == "Heal")
+        {
+            Heal heal = other.GetComponent<Heal>();
+            if(playerHealth < playerMaxHealth && heal != null)
+            {
+                Heal(heal.getHealAmount());
+                Destroy(other.gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Heal")
         {
-            if (playerHealth < playerMaxHealth)
+            Heal heal = other.GetComponent<Heal>();
+            if (playerHealth < playerMaxHealth && heal != null)
             {
-                Heal(70);
+                Heal(heal.getHealAmount());
                 Destroy(other.gameObject);
             }
         }
     }
 
-    private void Heal(int amount)
+    private void Heal(float amount)
     {
         playerHealth += amount;
         if (playerHealth > playerMaxHealth)
