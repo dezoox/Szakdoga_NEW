@@ -35,8 +35,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform ManaBar;
 
-
-
     //Leveling system
     [SerializeField]
     private float playerExperiencePoints;
@@ -52,6 +50,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject playerStats;
 
+
     void Start()
     {
         playerHealth = playerMaxHealth;
@@ -59,7 +58,7 @@ public class Player : MonoBehaviour
         rend = GetComponent<Renderer>();
         
         setPlayerStartingExp();
-        setPlayerStats();
+        updatePlayerStats();
     }
 
     void Update()
@@ -68,6 +67,7 @@ public class Player : MonoBehaviour
 
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
+
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -258,6 +258,8 @@ public class Player : MonoBehaviour
         RescaleHealthBar();
         playerMaxMana += 10;
         RescaleManaBar();
+
+        updatePlayerStats();
     }
 
     private void setPlayerStartingExp()
@@ -269,13 +271,15 @@ public class Player : MonoBehaviour
         playerExperienceBar.maxValue = playerExperienceNeeded;
         playerCurrentLevelText.text = "Level: " + playerLevel;
     }
-    private void setPlayerStats()
+    private void updatePlayerStats()
     {
         playerStats.SetActive(true);
         FindAndWriteText("stat_manaRegeneration", playerManaRegeneration.ToString());
         FindAndWriteText("stat_movementSpeed", movementSpeed.ToString());
         FindAndWriteText("stat_damage", playerDamage.ToString());
         FindAndWriteText("stat_attackSpeed", attackSpeed.ToString());
+        FindAndWriteText("stat_maxMana", playerMaxMana.ToString());
+        FindAndWriteText("stat_maxHealth", playerMaxHealth.ToString());
         playerStats.SetActive(false);
     }
 

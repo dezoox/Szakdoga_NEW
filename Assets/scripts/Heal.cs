@@ -5,6 +5,8 @@ using UnityEngine;
 public class Heal : MonoBehaviour
 {
     float timer = 0.0f;
+    float destroyTimer = 0.0f;
+    float timeWhenDestroy = 15f;
     Vector3 rotation = new Vector3(0, 45, 0);
 
     private float healAmount = 70f;
@@ -19,6 +21,11 @@ public class Heal : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
+        destroyTimer += Time.deltaTime;
+        if (destroyTimer > timeWhenDestroy)
+        {
+            Destroy(this.gameObject);
+        }
         transform.Rotate(rotation * Time.deltaTime);
         if (timer < 1.0f)
         {

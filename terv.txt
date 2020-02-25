@@ -38,3 +38,14 @@ ellenfél:	-kapszula, ami patrollingol valahol, és ha elég közel mész, megt�
 
 ÉSZREVÉTELEK:
 		-Ha majd lesz pálya, navigation meshhel beállítani azt, ahol lehet mozogni.
+
+
+
+
+TODO:
+-plusz ellenfelek(repülő, lövő, pathfinding navmesh)
+-poti felvétel
+-mini inventory rendszer
+-plusz jel eltűnik 15mp után
+-animáció mikor meghal valami boss
+-quest osztály, jól struktúrált quest

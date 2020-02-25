@@ -50,6 +50,7 @@ public class PatrollingEnemy : MonoBehaviour
     void Update()
     {
         slider.value = getHealthValue();
+        slider.transform.LookAt(player.transform);
 
         if (RecognizePlayer())
         {

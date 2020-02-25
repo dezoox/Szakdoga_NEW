@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         slider.value = getHealthValue();
+        slider.transform.LookAt(player.transform);
     }
     private void OnTriggerStay(Collider other)
     {

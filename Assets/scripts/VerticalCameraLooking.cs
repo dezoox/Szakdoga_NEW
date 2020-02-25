@@ -5,12 +5,17 @@ using UnityEngine;
 public class VerticalCameraLooking : MonoBehaviour
 {
     private float mouseSpeed = 50f;
+    float direction = 0f;
+
+    void Start()
+    {
+    }
     void Update()
     {
         if (Input.GetMouseButton(1))
         {
-            float rotationX = -Input.GetAxis("Mouse Y");
-            transform.Rotate(rotationX * mouseSpeed * Time.deltaTime, 0, 0);
+            direction = -Input.GetAxis("Mouse Y");
+            transform.Rotate(direction * mouseSpeed * Time.deltaTime, 0, 0);
         }
     }
 }
