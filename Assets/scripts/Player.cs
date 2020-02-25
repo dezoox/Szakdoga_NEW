@@ -150,11 +150,11 @@ public class Player : MonoBehaviour
     private void getMana(float amount)
     {
         playerMana += amount;
-        RescaleManaBar();
         if (playerMana > playerMaxMana)
         {
             playerMana = playerMaxMana;
         }
+        RescaleManaBar();
     }
 
     private void OnTriggerStay(Collider other)
@@ -187,12 +187,7 @@ public class Player : MonoBehaviour
         }
         if(other.tag == "Heal")
         {
-            Heal heal = other.GetComponent<Heal>();
-            if(playerHealth < playerMaxHealth && heal != null)
-            {
-                Heal(heal.HealAmount);
-                Destroy(other.gameObject);
-            }
+            Heal(other);
         }
     }
 
@@ -200,16 +195,20 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Heal")
         {
-            Heal heal = other.GetComponent<Heal>();
-            if (playerHealth < playerMaxHealth && heal != null)
-            {
-                Heal(heal.HealAmount);
-                Destroy(other.gameObject);
-            }
+            Heal(other);
+        }
+    }
+    private void Heal(Collider other)
+    {
+        Heal heal = other.GetComponent<Heal>();
+        if (playerHealth < playerMaxHealth && heal != null)
+        {
+            addHealthToPlayer(heal.HealAmount);
+            Destroy(other.gameObject);
         }
     }
 
-    private void Heal(float amount)
+    private void addHealthToPlayer(float amount)
     {
         playerHealth += amount;
         if (playerHealth > playerMaxHealth)
