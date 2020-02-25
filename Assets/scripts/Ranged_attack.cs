@@ -5,8 +5,8 @@ using UnityEngine;
 public class Ranged_attack : MonoBehaviour
 {
     private float speed = 4.0f;
-    private float manaCost = 75f;
-    public float ManaCost
+    private int manaCost = 75;
+    public int ManaCost
     {
         get
         {

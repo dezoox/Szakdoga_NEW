@@ -9,8 +9,8 @@ public class Heal : MonoBehaviour
     float timeWhenDestroy = 15f;
     Vector3 rotation = new Vector3(0, 45, 0);
 
-    private float healAmount = 70f;
-    public float HealAmount
+    private int healAmount = 70;
+    public int HealAmount
     {
         get
         {

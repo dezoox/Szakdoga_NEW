@@ -32,20 +32,20 @@ public class PatrollingEnemy : MonoBehaviour
     private float enemyHealth;
     private float enemyMaxHealth = 100;
     [SerializeField]
-    private float enemyDamage;
+    private int enemyDamage;
 
     public GameObject dropHealth;
     public GameObject healthBar;
     public Slider slider;
 
-    private float expreienceReward = 5f;
+    private int expreienceReward = 5;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemyHealth = enemyMaxHealth;
-        enemyDamage = 17f;
+        enemyDamage = 17;
     }
     void Update()
     {

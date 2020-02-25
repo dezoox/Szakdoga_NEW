@@ -8,8 +8,8 @@ public class HealthPotion : MonoBehaviour
     float destroyTimer = 0.0f;
     float timeWhenDestroy = 15f;
 
-    private float healAmount = 25f;
-    public float HealAmount
+    private int healAmount = 25;
+    public int HealAmount
     {
         get
         {

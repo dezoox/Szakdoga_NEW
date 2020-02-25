@@ -12,25 +12,25 @@ public class Player : MonoBehaviour
     private float movementSpeed = 5.0f;
     private float attackSpeed = 2.5f;
     private float playerDamage = 10f;
-    private float playerManaRegeneration = 1.0f / 60f;
+    private int playerManaRegeneration = 1 / 60;
 
     private float timer = 0;
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
     Renderer rend;
-    
+
     public Ranged_attack rangedAttack;
-    
+
 
     //HP and MANA system
     [SerializeField]
-    private float playerHealth;
+    private int playerHealth;
     [SerializeField]
-    private float playerMaxHealth = 100f;
+    private int playerMaxHealth = 100;
     [SerializeField]
-    private float playerMaxMana = 100;
+    private int playerMaxMana = 100;
     [SerializeField]
-    private float playerMana;
+    private int playerMana;
     [SerializeField]
     private Transform Healthbar;
     [SerializeField]
@@ -38,11 +38,11 @@ public class Player : MonoBehaviour
 
     //Leveling system
     [SerializeField]
-    private float playerExperiencePoints;
+    private int playerExperiencePoints;
     [SerializeField]
     private int playerLevel;
     [SerializeField]
-    private float playerExperienceNeeded;
+    private int playerExperienceNeeded;
     [SerializeField]
     private Slider playerExperienceBar;
     [SerializeField]
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
         rend = GetComponent<Renderer>();
-        
+
         setPlayerStartingExp();
         updatePlayerStats();
     }
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    public void DamagePlayer(float damageAmount)
+    public void DamagePlayer(int damageAmount)
     {
         playerHealth -= damageAmount;
         rescaleHealthBar();
@@ -123,13 +123,13 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(ChangeMaterial());
         }
-        if (playerHealth < 0)
+        if (playerHealth <= 0)
         {
             playerHealth = 0;
             Destroy(this.gameObject);
         }
     }
-    public void SpendMana(float spentMana)
+    public void SpendMana(int spentMana)
     {
         if (hasEnoughMana(spentMana))
         {
@@ -146,11 +146,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool hasEnoughMana(float manaCost)
+    private bool hasEnoughMana(int manaCost)
     {
         return playerMana - manaCost > 0;
     }
-    private void getMana(float amount)
+    private void getMana(int amount)
     {
         playerMana += amount;
         if (playerMana > playerMaxMana)
@@ -188,39 +188,30 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
-        if(other.tag == "Heal")
-        {
-            heal(other);
-        }
-        if (other.tag == "HealthPotion")
-        {
-            healPotion(other);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Heal")
         {
-            heal(other);
+            heal(other, false);
         }
-        if(other.tag == "HealthPotion")
+        else if (other.tag == "HealthPotion")
         {
-            healPotion(other);
+            heal(other, true);
         }
     }
-    private void healPotion(Collider other)
+    private void heal(Collider other, bool isPotion)
     {
-        HealthPotion potion = other.GetComponent<HealthPotion>();
-        if(playerHealth < playerMaxHealth && potion != null)
+        dynamic heal;
+        if (isPotion)
         {
-            addHealthToPlayer(potion.HealAmount);
-            Destroy(other.gameObject);
+            heal = other.GetComponent<HealthPotion>();
         }
-    }
-    private void heal(Collider other)
-    {
-        Heal heal = other.GetComponent<Heal>();
+        else
+        {
+            heal = other.GetComponent<Heal>();
+        }
         if (playerHealth < playerMaxHealth && heal != null)
         {
             addHealthToPlayer(heal.HealAmount);
@@ -228,7 +219,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void addHealthToPlayer(float amount)
+    private void addHealthToPlayer(int amount)
     {
         playerHealth += amount;
         if (playerHealth > playerMaxHealth)
@@ -240,11 +231,11 @@ public class Player : MonoBehaviour
 
     private void rescaleHealthBar()
     {
-        Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
+        Healthbar.transform.localScale = new Vector3((float)playerHealth / (float)playerMaxHealth, 1.0f, 1.0f);
     }
     private void rescaleManaBar()
     {
-        ManaBar.transform.localScale = new Vector3(playerMana / playerMaxMana, 1.0f, 1.0f);
+        ManaBar.transform.localScale = new Vector3((float)playerMana / (float)playerMaxMana, 1.0f, 1.0f);
     }
     IEnumerator ChangeMaterial()
     {
@@ -253,7 +244,7 @@ public class Player : MonoBehaviour
         rend.material = basicMaterial;
     }
 
-    public void GetExperience(float amount)
+    public void GetExperience(int amount)
     {
         playerExperiencePoints += amount;
         playerExperienceBar.value = playerExperiencePoints;
