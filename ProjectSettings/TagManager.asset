@@ -10,6 +10,7 @@ TagManager:
   - PatrollingEnemy
   - HealthBar
   - Heal
+  - HealthPotion
   layers:
   - Default
   - TransparentFX

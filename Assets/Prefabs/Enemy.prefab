@@ -114,6 +114,7 @@ MonoBehaviour:
   enemyDamage: 0
   dropHealth: {fileID: 8134463738578380455, guid: de5f5bc267fd1cf49bf0fb85693a3de1,
     type: 3}
+  dropHealthPotion: {fileID: 124438, guid: 789e4f4c8255f4f5ba6a4dcfe53fb16b, type: 3}
   healthBar: {fileID: 2673035110669722154}
   slider: {fileID: 840847747292080133}
 --- !u!54 &863387914
@@ -262,16 +263,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7098281026870726322, guid: 22ceb30f89eb42148a4998ae3c1ebd69,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7098281026870726322, guid: 22ceb30f89eb42148a4998ae3c1ebd69,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22ceb30f89eb42148a4998ae3c1ebd69, type: 3}

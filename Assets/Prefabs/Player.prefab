@@ -238,6 +238,7 @@ MonoBehaviour:
   playerExperienceBar: {fileID: 0}
   playerCurrentLevelText: {fileID: 0}
   playerStats: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     Renderer rend;
     
     public Ranged_attack rangedAttack;
+    
 
     //HP and MANA system
     [SerializeField]
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject playerStats;
 
+    [SerializeField]
+    private Inventory inventory;
 
     void Start()
     {
@@ -115,7 +118,7 @@ public class Player : MonoBehaviour
     public void DamagePlayer(float damageAmount)
     {
         playerHealth -= damageAmount;
-        RescaleHealthBar();
+        rescaleHealthBar();
         if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
@@ -131,7 +134,7 @@ public class Player : MonoBehaviour
         if (hasEnoughMana(spentMana))
         {
             playerMana -= spentMana;
-            RescaleManaBar();
+            rescaleManaBar();
             if (playerMana < 0)
             {
                 playerMana = 0;
@@ -154,7 +157,7 @@ public class Player : MonoBehaviour
         {
             playerMana = playerMaxMana;
         }
-        RescaleManaBar();
+        rescaleManaBar();
     }
 
     private void OnTriggerStay(Collider other)
@@ -187,7 +190,11 @@ public class Player : MonoBehaviour
         }
         if(other.tag == "Heal")
         {
-            Heal(other);
+            heal(other);
+        }
+        if (other.tag == "HealthPotion")
+        {
+            healPotion(other);
         }
     }
 
@@ -195,10 +202,23 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Heal")
         {
-            Heal(other);
+            heal(other);
+        }
+        if(other.tag == "HealthPotion")
+        {
+            healPotion(other);
         }
     }
-    private void Heal(Collider other)
+    private void healPotion(Collider other)
+    {
+        HealthPotion potion = other.GetComponent<HealthPotion>();
+        if(playerHealth < playerMaxHealth && potion != null)
+        {
+            addHealthToPlayer(potion.HealAmount);
+            Destroy(other.gameObject);
+        }
+    }
+    private void heal(Collider other)
     {
         Heal heal = other.GetComponent<Heal>();
         if (playerHealth < playerMaxHealth && heal != null)
@@ -215,14 +235,14 @@ public class Player : MonoBehaviour
         {
             playerHealth = playerMaxHealth;
         }
-        RescaleHealthBar();
+        rescaleHealthBar();
     }
 
-    private void RescaleHealthBar()
+    private void rescaleHealthBar()
     {
         Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
     }
-    private void RescaleManaBar()
+    private void rescaleManaBar()
     {
         ManaBar.transform.localScale = new Vector3(playerMana / playerMaxMana, 1.0f, 1.0f);
     }
@@ -240,10 +260,10 @@ public class Player : MonoBehaviour
 
         if (playerExperiencePoints >= playerExperienceNeeded)
         {
-            LevelUp();
+            levelUp();
         }
     }
-    private void LevelUp()
+    private void levelUp()
     {
         playerExperiencePoints = 0;
         playerExperienceBar.value = 0;
@@ -254,9 +274,9 @@ public class Player : MonoBehaviour
         playerCurrentLevelText.text = "Level: " + playerLevel.ToString();
 
         playerMaxHealth += 10;
-        RescaleHealthBar();
+        rescaleHealthBar();
         playerMaxMana += 10;
-        RescaleManaBar();
+        rescaleManaBar();
 
         updatePlayerStats();
     }
@@ -273,16 +293,16 @@ public class Player : MonoBehaviour
     private void updatePlayerStats()
     {
         playerStats.SetActive(true);
-        FindAndWriteText("stat_manaRegeneration", playerManaRegeneration.ToString());
-        FindAndWriteText("stat_movementSpeed", movementSpeed.ToString());
-        FindAndWriteText("stat_damage", playerDamage.ToString());
-        FindAndWriteText("stat_attackSpeed", attackSpeed.ToString());
-        FindAndWriteText("stat_maxMana", playerMaxMana.ToString());
-        FindAndWriteText("stat_maxHealth", playerMaxHealth.ToString());
+        findAndWriteText("stat_manaRegeneration", playerManaRegeneration.ToString());
+        findAndWriteText("stat_movementSpeed", movementSpeed.ToString());
+        findAndWriteText("stat_damage", playerDamage.ToString());
+        findAndWriteText("stat_attackSpeed", attackSpeed.ToString());
+        findAndWriteText("stat_maxMana", playerMaxMana.ToString());
+        findAndWriteText("stat_maxHealth", playerMaxHealth.ToString());
         playerStats.SetActive(false);
     }
 
-    private void FindAndWriteText(string name, string text)
+    private void findAndWriteText(string name, string text)
     {
         Text temp = GameObject.Find(name).GetComponent<Text>();
         temp.text = text;
