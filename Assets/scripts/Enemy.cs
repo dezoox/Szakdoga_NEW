@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private float enemyMaxHealth = 100;
     [SerializeField]
     private int enemyDamage;
-    private float timeBetweenAttacks = 2.6f;
+    private float timeBetweenAttacks = 3f;
     private float timer = 0;
     public GameObject dropHealth;
     [SerializeField]
@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
                 if (player != null)
                 {
                     player.DamagePlayer(enemyDamage);
+                    Debug.Log("sebződött a player" + enemyDamage);
                 }
                 timer = 0.0f;
             }
@@ -70,8 +71,8 @@ public class Enemy : MonoBehaviour
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 1.5f;
 
-            Instantiate(dropHealth, spawnPosition, Quaternion.identity);
-            //Instantiate(dropHealthPotion, spawnPosition, Quaternion.identity);
+            //Instantiate(dropHealth, spawnPosition, Quaternion.identity);
+            Instantiate(dropHealthPotion, spawnPosition, Quaternion.identity);
             Player temp = player.GetComponent<Player>();
             if (temp != null)
             {

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     //Player stats
     private float movementSpeed = 5.0f;
-    private float attackSpeed = 2.5f;
+    private float attackSpeed = 3f;
     private float playerDamage = 10f;
     private int playerManaRegeneration = 1 / 60;
 
@@ -54,6 +54,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Inventory inventory;
 
+
+
+    List<GameObject> gameobjectek;
+
     void Start()
     {
         playerHealth = playerMaxHealth;
@@ -66,6 +70,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+
+
         getMana(playerManaRegeneration);
 
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
@@ -115,6 +121,85 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            timer += Time.deltaTime;
+            if (timer > attackSpeed)
+            {
+                Enemy enemy = other.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.DamageEnemy(playerDamage);
+                    Debug.Log("enemy sebződött " + playerDamage);
+                }
+                timer = 0.0f;
+            }
+        }
+        if (other.tag == "PatrollingEnemy")
+        {
+            timer += Time.deltaTime;
+            if (timer > attackSpeed)
+            {
+                PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
+                if (enemy != null)
+                {
+                    enemy.DamageEnemy(playerDamage);
+                }
+                timer = 0.0f;
+            }
+        }
+    }
+   
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Heal")
+        {
+            heal(collision.collider, false);
+        }
+        if (collision.gameObject.tag == "HealthPotion")
+        {
+            heal(collision.collider, true);
+        }
+    }
+
+
+    private void heal(Collider other, bool isPotion)
+    {
+        dynamic heal = null;
+        if (isPotion)
+        {
+            heal = other.GetComponent<HealthPotion>();
+        }
+        else
+        {
+            heal = other.GetComponent<Heal>();
+        }
+        if (playerHealth < playerMaxHealth && heal != null)
+        {
+            Debug.Log("heal ::" + heal);
+            Debug.Log("other gámeobjekt ::" + other.gameObject);
+            addHealthToPlayer(heal.HealAmount, other);
+        }
+    }
+
+    private void addHealthToPlayer(int amount, Collider other)
+    {
+        Destroy(other.gameObject);
+        print("TÖRÖLVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        playerHealth += amount;
+        if (playerHealth > playerMaxHealth)
+        {
+            playerHealth = playerMaxHealth;
+        }
+        rescaleHealthBar();
+    }
+    private void rescaleHealthBar()
+    {
+        Healthbar.transform.localScale = new Vector3((float)playerHealth / (float)playerMaxHealth, 1.0f, 1.0f);
+    }
     public void DamagePlayer(int damageAmount)
     {
         playerHealth -= damageAmount;
@@ -160,79 +245,7 @@ public class Player : MonoBehaviour
         rescaleManaBar();
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            timer += Time.deltaTime;
-            if (timer > attackSpeed)
-            {
-                Enemy enemy = other.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    enemy.DamageEnemy(playerDamage);
-                }
-                timer = 0.0f;
-            }
-        }
-        if (other.tag == "PatrollingEnemy")
-        {
-            timer += Time.deltaTime;
-            if (timer > attackSpeed)
-            {
-                PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
-                if (enemy != null)
-                {
-                    enemy.DamageEnemy(playerDamage);
-                }
-                timer = 0.0f;
-            }
-        }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Heal")
-        {
-            heal(other, false);
-        }
-        else if (other.tag == "HealthPotion")
-        {
-            heal(other, true);
-        }
-    }
-    private void heal(Collider other, bool isPotion)
-    {
-        dynamic heal;
-        if (isPotion)
-        {
-            heal = other.GetComponent<HealthPotion>();
-        }
-        else
-        {
-            heal = other.GetComponent<Heal>();
-        }
-        if (playerHealth < playerMaxHealth && heal != null)
-        {
-            addHealthToPlayer(heal.HealAmount);
-            Destroy(other.gameObject);
-        }
-    }
-
-    private void addHealthToPlayer(int amount)
-    {
-        playerHealth += amount;
-        if (playerHealth > playerMaxHealth)
-        {
-            playerHealth = playerMaxHealth;
-        }
-        rescaleHealthBar();
-    }
-
-    private void rescaleHealthBar()
-    {
-        Healthbar.transform.localScale = new Vector3((float)playerHealth / (float)playerMaxHealth, 1.0f, 1.0f);
-    }
     private void rescaleManaBar()
     {
         ManaBar.transform.localScale = new Vector3((float)playerMana / (float)playerMaxMana, 1.0f, 1.0f);
