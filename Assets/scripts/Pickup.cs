@@ -6,7 +6,6 @@ public class Pickup : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject itemButton;
-
     private Player player;
 
     private void Start()
@@ -17,7 +16,7 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.tag == "Player")
         {
             for (int i = 0; i < inventory.slots.Length; i++)
             {

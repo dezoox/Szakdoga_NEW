@@ -17,16 +17,6 @@ public class HealthPotion : MonoBehaviour
             return healAmount;
         }
     }
-    [SerializeField]
-    private Texture2D texture;
-
-    public Texture2D Texture
-    {
-        get
-        {
-            return texture;
-        }
-    }
 
     Vector3 rotation = new Vector3(0, 45, 0);
     void Update()
