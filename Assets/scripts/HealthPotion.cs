@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthPotion : MonoBehaviour
 {
@@ -14,6 +15,16 @@ public class HealthPotion : MonoBehaviour
         get
         {
             return healAmount;
+        }
+    }
+    [SerializeField]
+    private Texture2D texture;
+
+    public Texture2D Texture
+    {
+        get
+        {
+            return texture;
         }
     }
 

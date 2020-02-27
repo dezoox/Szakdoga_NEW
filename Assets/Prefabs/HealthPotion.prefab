@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 416912}
   - component: {fileID: 3317858}
   - component: {fileID: 2303792}
-  - component: {fileID: 6912357420933479034}
   - component: {fileID: 763235548}
   - component: {fileID: -6687727060589297581}
   - component: {fileID: 7689878590066475712}
+  - component: {fileID: 416022174}
   m_Layer: 0
   m_Name: HealthPotion
   m_TagString: HealthPotion
@@ -83,18 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6912357420933479034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b166e07cf3f4be40839a9d691d16ef3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &763235548
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -136,6 +124,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37744678d3fd9f4385ec3f905005d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texture: {fileID: 2800000, guid: 28cd643389c25de4eb77f49567812e47, type: 3}
+--- !u!114 &416022174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ad2245076f0dc4ab344bc374a66802, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemButton: {fileID: 756059780174876876, guid: e82c5d9b094e388409add71c5341bb4c,
+    type: 3}
 --- !u!1 &136342
 GameObject:
   m_ObjectHideFlags: 0

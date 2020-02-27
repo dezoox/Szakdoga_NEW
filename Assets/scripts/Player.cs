@@ -8,12 +8,6 @@ public class Player : MonoBehaviour
     public Material basicMaterial;
     public Material hurtMaterial;
 
-    //Player stats
-    private float movementSpeed = 5.0f;
-    private float attackSpeed = 3f;
-    private float playerDamage = 10f;
-    private int playerManaRegeneration = 1 / 60;
-
     private float timer = 0;
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
@@ -21,12 +15,31 @@ public class Player : MonoBehaviour
 
     public Ranged_attack rangedAttack;
 
+    //Player stats
+    private float movementSpeed = 5.0f;
+    private float attackSpeed = 3f;
+    private float playerDamage = 10f;
+    private int playerManaRegeneration = 1 / 60;
 
     //HP and MANA system
     [SerializeField]
     private int playerHealth;
+    public int PlayerHealth
+    {
+        get
+        {
+            return playerHealth;
+        }
+    }
     [SerializeField]
     private int playerMaxHealth = 100;
+    public int PlayerMaxHealth
+    {
+        get
+        {
+            return playerMaxHealth;
+        }
+    }
     [SerializeField]
     private int playerMaxMana = 100;
     [SerializeField]
@@ -51,13 +64,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject playerStats;
 
-    [SerializeField]
-    private Inventory inventory;
-
-
-
-    List<GameObject> gameobjectek;
-
     void Start()
     {
         playerHealth = playerMaxHealth;
@@ -70,8 +76,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
-
         getMana(playerManaRegeneration);
 
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
@@ -133,7 +137,6 @@ public class Player : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.DamageEnemy(playerDamage);
-                    Debug.Log("enemy sebződött " + playerDamage);
                 }
                 timer = 0.0f;
             }
@@ -177,18 +180,20 @@ public class Player : MonoBehaviour
         {
             heal = other.GetComponent<Heal>();
         }
+
         if (playerHealth < playerMaxHealth && heal != null)
         {
-            Debug.Log("heal ::" + heal);
-            Debug.Log("other gámeobjekt ::" + other.gameObject);
             addHealthToPlayer(heal.HealAmount, other);
+        }
+        else if(playerHealth >= playerMaxHealth && heal != null && heal is HealthPotion) //maybe null checking not needed
+        {
+            
         }
     }
 
     private void addHealthToPlayer(int amount, Collider other)
     {
         Destroy(other.gameObject);
-        print("TÖRÖLVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         playerHealth += amount;
         if (playerHealth > playerMaxHealth)
         {
