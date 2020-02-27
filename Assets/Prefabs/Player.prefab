@@ -141,7 +141,8 @@ GameObject:
   - component: {fileID: 2265417438264836062}
   - component: {fileID: 169991887}
   - component: {fileID: 1872202222}
-  - component: {fileID: 1872202223}
+  - component: {fileID: 121286913}
+  - component: {fileID: 121286912}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -238,7 +239,6 @@ MonoBehaviour:
   playerExperienceBar: {fileID: 0}
   playerCurrentLevelText: {fileID: 0}
   playerStats: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -268,7 +268,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &1872202223
+--- !u!114 &121286913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087634037391286621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2eb4ef0486c0045a43b7c8cab0abf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 0000000000
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!136 &121286912
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
