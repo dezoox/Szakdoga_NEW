@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8201165486635369608}
   - component: {fileID: 9011084521984583480}
   - component: {fileID: 3994568757847961982}
+  - component: {fileID: 3492834753106950734}
   m_Layer: 5
-  m_Name: HealthButton
+  m_Name: HealthPotion_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,3 +118,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3492834753106950734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756059780174876876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806780c644a690e42bea63bf40083ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 124438, guid: 789e4f4c8255f4f5ba6a4dcfe53fb16b, type: 3}

@@ -25,10 +25,10 @@ public class Slot : MonoBehaviour
     }
     public void DropItem()
     {
-        Vector3 spawnPosition = playerTransform.position;
-        spawnPosition.x += 10;
+        
         foreach (Transform child in transform)
         {
+            child.GetComponent<SpawnPickupable>().SpawnDroppedItem();
             GameObject.Destroy(child.gameObject);
         }
     }
