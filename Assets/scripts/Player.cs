@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-   
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Heal")
@@ -185,10 +185,6 @@ public class Player : MonoBehaviour
         {
             addHealthToPlayer(heal.HealAmount, other);
         }
-        else if(playerHealth >= playerMaxHealth && heal != null && heal is HealthPotion) //maybe null checking not needed
-        {
-            
-        }
     }
 
     private void addHealthToPlayer(int amount, Collider other)
@@ -201,6 +197,35 @@ public class Player : MonoBehaviour
         }
         rescaleHealthBar();
     }
+
+    public void HealFromInventory(bool isPotion, GameObject potionImage)
+    {
+        Debug.Log("player healt: " + playerHealth);
+        Debug.Log("player max health: " + playerMaxHealth);
+        if (playerHealth < playerMaxHealth)
+        {
+            Debug.Log("IM INSIDE");
+            if (isPotion)
+            {
+                playerHealth += 25;
+                if (playerHealth > playerMaxHealth)
+                {
+                    playerHealth = playerMaxHealth;
+                }
+                rescaleHealthBar();
+            }
+            else if (!isPotion)
+            {
+                playerHealth += 70;
+                if (playerHealth > playerMaxHealth)
+                {
+                    playerHealth = playerMaxHealth;
+                }
+                rescaleHealthBar();
+            }
+            Destroy(potionImage);
+        }
+    }
     private void rescaleHealthBar()
     {
         Healthbar.transform.localScale = new Vector3((float)playerHealth / (float)playerMaxHealth, 1.0f, 1.0f);
@@ -209,6 +234,7 @@ public class Player : MonoBehaviour
     {
         playerHealth -= damageAmount;
         rescaleHealthBar();
+        Debug.Log("player damaged. new HP: " + playerHealth);
         if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
@@ -219,7 +245,7 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public void SpendMana(int spentMana)
+    private void SpendMana(int spentMana)
     {
         if (hasEnoughMana(spentMana))
         {

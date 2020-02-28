@@ -51,7 +51,6 @@ public class Enemy : MonoBehaviour
                 if (player != null)
                 {
                     player.DamagePlayer(enemyDamage);
-                    Debug.Log("sebződött a player" + enemyDamage);
                 }
                 timer = 0.0f;
             }

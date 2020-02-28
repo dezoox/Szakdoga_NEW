@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c37744678d3fd9f4385ec3f905005d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 28cd643389c25de4eb77f49567812e47, type: 3}
 --- !u!114 &416022174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ad2245076f0dc4ab344bc374a66802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemButton: {fileID: 756059780174876876, guid: e82c5d9b094e388409add71c5341bb4c,
+  itemButton: {fileID: 107119014590311025, guid: e82c5d9b094e388409add71c5341bb4c,
     type: 3}
 --- !u!1 &136342
 GameObject:

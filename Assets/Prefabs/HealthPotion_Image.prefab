@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &756059780174876876
+--- !u!1 &107119014590311025
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4780879703270912321}
-  - component: {fileID: 8201165486635369608}
-  - component: {fileID: 9011084521984583480}
-  - component: {fileID: 3994568757847961982}
-  - component: {fileID: 3492834753106950734}
+  - component: {fileID: 48837611970266436}
+  - component: {fileID: 4914153646828516769}
+  - component: {fileID: 8550689244637531556}
+  - component: {fileID: 5987604217688425456}
+  - component: {fileID: 6145765979118346296}
+  - component: {fileID: 2042034422336093038}
   m_Layer: 5
   m_Name: HealthPotion_Image
   m_TagString: Untagged
@@ -20,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4780879703270912321
+--- !u!224 &48837611970266436
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756059780174876876}
+  m_GameObject: {fileID: 107119014590311025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -39,21 +40,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8201165486635369608
+--- !u!222 &4914153646828516769
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756059780174876876}
+  m_GameObject: {fileID: 107119014590311025}
   m_CullTransparentMesh: 0
---- !u!114 &9011084521984583480
+--- !u!114 &8550689244637531556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756059780174876876}
+  m_GameObject: {fileID: 107119014590311025}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -75,13 +76,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3994568757847961982
+--- !u!114 &5987604217688425456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756059780174876876}
+  m_GameObject: {fileID: 107119014590311025}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -114,20 +115,44 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 9011084521984583480}
+  m_TargetGraphic: {fileID: 8550689244637531556}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &3492834753106950734
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: HealFromInventory
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
+--- !u!114 &6145765979118346296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756059780174876876}
+  m_GameObject: {fileID: 107119014590311025}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 806780c644a690e42bea63bf40083ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 124438, guid: 789e4f4c8255f4f5ba6a4dcfe53fb16b, type: 3}
+--- !u!114 &2042034422336093038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107119014590311025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0837c5cce6d97a24d8bb5ead25b13dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 5987604217688425456}
