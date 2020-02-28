@@ -11,6 +11,7 @@ TagManager:
   - HealthBar
   - Heal
   - HealthPotion
+  - RangedAttackIcon
   layers:
   - Default
   - TransparentFX

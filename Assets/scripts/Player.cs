@@ -64,12 +64,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject playerStats;
 
+    private Image canRangedAttack;
+    private Color canRangedAttackColor = Color.green;
+    private Color canNotRangedAttackColor = Color.gray;
+    
+
     void Start()
     {
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
         rend = GetComponent<Renderer>();
-
+        canRangedAttack = GameObject.FindGameObjectWithTag("RangedAttackIcon").GetComponent<Image>();
+        canRangedAttack.color = canRangedAttackColor;
         setPlayerStartingExp();
         updatePlayerStats();
     }
@@ -81,7 +87,14 @@ public class Player : MonoBehaviour
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
 
-
+        if (hasEnoughMana(rangedAttack.ManaCost))
+        {
+            canRangedAttack.color = canRangedAttackColor;
+        }
+        else
+        {
+            canRangedAttack.color = canNotRangedAttackColor;
+        }
         if (Input.GetKeyDown(KeyCode.C))
         {
             playerStats.SetActive(true);
@@ -200,11 +213,8 @@ public class Player : MonoBehaviour
 
     public void HealFromInventory(bool isPotion, GameObject potionImage)
     {
-        Debug.Log("player healt: " + playerHealth);
-        Debug.Log("player max health: " + playerMaxHealth);
         if (playerHealth < playerMaxHealth)
         {
-            Debug.Log("IM INSIDE");
             if (isPotion)
             {
                 playerHealth += 25;
@@ -234,7 +244,6 @@ public class Player : MonoBehaviour
     {
         playerHealth -= damageAmount;
         rescaleHealthBar();
-        Debug.Log("player damaged. new HP: " + playerHealth);
         if (rend != null)
         {
             StartCoroutine(ChangeMaterial());
