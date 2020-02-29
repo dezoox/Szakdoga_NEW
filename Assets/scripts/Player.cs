@@ -16,10 +16,10 @@ public class Player : MonoBehaviour
     public Ranged_attack rangedAttack;
 
     //Player stats
-    private float movementSpeed = 5.0f;
+    private float movementSpeed = 15.0f;
     private float attackSpeed = 3f;
     private float playerDamage = 10f;
-    private int playerManaRegeneration = 1 / 60;
+    private int playerManaRegeneration = 1;
 
     //HP and MANA system
     [SerializeField]
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     {
         getMana(playerManaRegeneration);
 
-        transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed * Time.deltaTime;
+        transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
 
         if (hasEnoughMana(rangedAttack.ManaCost))

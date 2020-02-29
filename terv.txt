@@ -49,3 +49,7 @@ TODO:
 -plusz jel eltűnik 15mp után
 -animáció mikor meghal valami boss
 -quest osztály, jól struktúrált quest
+
+ötlet:
+-stamina rendszer, bal shift nyomására fut egy darabíg amíg van stamina, (több movement speed), amint elfogy a stamina már nem tud sprintelni, és utána töltődik
+-coint dobnának a szörnyek, elég coin esetén tudna venni a játékos health potiont, ami bekerül az inventoryba.
