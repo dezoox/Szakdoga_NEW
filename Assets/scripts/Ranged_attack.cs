@@ -17,6 +17,8 @@ public class Ranged_attack : MonoBehaviour
     private int damage = 55;
     private GameObject player;
     private Vector3 direction;
+    private float DestroyTimer = 0.0f;
+    private float TimeWhenDestroy = 10.0f;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -25,6 +27,11 @@ public class Ranged_attack : MonoBehaviour
 
     void Update()
     {
+        DestroyTimer += Time.deltaTime;
+        if(DestroyTimer > TimeWhenDestroy)
+        {
+            Destroy(this.gameObject);
+        }
         transform.Translate(direction * Time.deltaTime * speed);
     }
 

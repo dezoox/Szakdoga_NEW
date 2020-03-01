@@ -49,11 +49,24 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform ManaBar;
 
+    [SerializeField]
+    private Text healthText;
+    [SerializeField]
+    private Text manaText;
+
     //Leveling system
     [SerializeField]
     private int playerExperiencePoints;
     [SerializeField]
     private int playerLevel;
+    public int PlayerLevel
+    {
+        get
+        {
+            return playerLevel;
+        }
+    }
+
     [SerializeField]
     private int playerExperienceNeeded;
     [SerializeField]
@@ -83,7 +96,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         getMana(playerManaRegeneration);
-
+        DisplayManaAndHealth();
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
 
@@ -350,5 +363,11 @@ public class Player : MonoBehaviour
     {
         Text temp = GameObject.Find(name).GetComponent<Text>();
         temp.text = text;
+    }
+
+    private void DisplayManaAndHealth()
+    {
+        healthText.text = playerHealth + "/" + playerMaxHealth;
+        manaText.text = (int)playerMana + "/" + playerMaxMana;
     }
 }

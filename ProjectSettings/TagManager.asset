@@ -12,6 +12,7 @@ TagManager:
   - Heal
   - HealthPotion
   - RangedAttackIcon
+  - NPC
   layers:
   - Default
   - TransparentFX
