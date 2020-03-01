@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;
+    private Rigidbody playerRigidBody;
 
     private float timer = 0;
     private bool isCameraRotates = false;
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        playerRigidBody = GetComponent<Rigidbody>();
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
         rend = GetComponent<Renderer>();
@@ -100,8 +102,9 @@ public class Player : MonoBehaviour
         addHealthToPlayer(playerHealthRegen, null);
 
         DisplayManaAndHealth();
-        transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
-        transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
+
+        Movement();
+        
 
         if (hasEnoughMana(rangedAttack.ManaCost))
         {
@@ -153,6 +156,43 @@ public class Player : MonoBehaviour
                 SpendMana(rangedAttack.ManaCost);
             }
         }
+    }
+    private void Movement()
+    {
+        transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
+        transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
+
+        //float horizontal = Input.GetAxis("Horizontal");
+        //float vertical = Input.GetAxis("Vertical");
+        //Vector3 movementX = Camera.main.transform.right * horizontal;
+        //Vector3 movementZ = Camera.main.transform.forward * vertical;
+        //Vector3 movement = movementX + movementZ;
+        //playerRigidBody.AddForce(movement * movementSpeed);
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    var camDir = Camera.main.transform.TransformDirection(Vector3.forward);
+        //    //camDir.y = 0.0f;
+        //    playerRigidBody.velocity = camDir.normalized * movementSpeed * Time.deltaTime;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    var camDir2 = Camera.main.transform.TransformDirection(Vector3.back);
+        //    //camDir2.z = 0.0f;
+        //    playerRigidBody.velocity = camDir2.normalized * movementSpeed * Time.deltaTime;
+        //}
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    var camDir3 = Camera.main.transform.TransformDirection(Vector3.left);
+        //    //camDir3.z = 0.0f;
+        //    playerRigidBody.velocity = camDir3.normalized * movementSpeed * Time.deltaTime;
+        //}
+        //else if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    var camDir4 = Camera.main.transform.TransformDirection(Vector3.right);
+        //   // camDir4.z = 0.0f;
+        //    playerRigidBody.velocity = camDir4.normalized * movementSpeed * Time.deltaTime;
+        //}
+
     }
 
     private void OnTriggerStay(Collider other)
