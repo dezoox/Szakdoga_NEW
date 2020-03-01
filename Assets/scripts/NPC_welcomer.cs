@@ -11,26 +11,31 @@ public class NPC_welcomer : MonoBehaviour
     [SerializeField]
     private GameObject welcomeText2;
     [SerializeField]
-    private GameObject welcomeText3;
-    [SerializeField]
-    private GameObject startingText;
+    private GameObject level3_text;
     [SerializeField]
     private GameObject level2Congrat_text;
     private float welcomeTextTimer = 0.0f;
 
+    private GameObject NPCWelcomer_canvas;
+    private bool haveToRotate = false;
+    private float timer = 0.0f;
+    private bool asd = true;
+
     void Start()
     {
-        welcomeText.SetActive(true);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        ActivateTextForSeconds(welcomeText, 4.0f);
+        NPCWelcomer_canvas = GameObject.FindGameObjectWithTag("NPCWelcomer_canvas");
     }
 
 
     void Update()
     {
-        welcomeTextTimer += Time.deltaTime;
-        if (welcomeTextTimer > 4.0f)
+        if (haveToRotate)
         {
-            welcomeText.SetActive(false);
+            float rotationSpeed = 50f;
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation, Quaternion.Euler(0, 90, 0), rotationSpeed * Time.deltaTime);
         }
     }
 
@@ -44,11 +49,16 @@ public class NPC_welcomer : MonoBehaviour
             }
             if (player.PlayerLevel == 1)
             {
-                startingText.SetActive(true);
+                ActivateTextForSeconds(welcomeText2, 30.0f);
             }
+
             if (player.PlayerLevel == 2)
             {
-                level2Congrat_text.SetActive(true);
+                ActivateTextForSeconds(level2Congrat_text, 30.0f);
+            }
+            if(player.PlayerLevel == 3)
+            {
+                ActivateTextForSeconds(level3_text, 30.0f);
             }
         }
     }
@@ -58,6 +68,7 @@ public class NPC_welcomer : MonoBehaviour
         if (other.tag == "Player")
         {
             transform.LookAt(other.gameObject.transform);
+            transform.rotation = new Quaternion(0, other.gameObject.transform.rotation.y, 0, 0);
         }
     }
 
@@ -66,9 +77,27 @@ public class NPC_welcomer : MonoBehaviour
         if (other.tag == "Player")
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
-            startingText.SetActive(false);
-            level2Congrat_text.SetActive(false);
+            DeactivateAllTexts();
         }
     }
 
+    private void ActivateTextForSeconds(GameObject text, float time)
+    {
+        StartCoroutine(CoroutineActivateTextForSeconds(text, time));
+    }
+
+    private IEnumerator CoroutineActivateTextForSeconds(GameObject textToActivate, float time)
+    {
+        textToActivate.SetActive(true);
+        yield return new WaitForSeconds(time);
+        textToActivate.SetActive(false);
+    }
+
+    private void DeactivateAllTexts()
+    {
+        foreach (Text item in NPCWelcomer_canvas.GetComponentsInChildren<Text>())
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 }

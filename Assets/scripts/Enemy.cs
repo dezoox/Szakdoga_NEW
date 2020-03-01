@@ -70,8 +70,8 @@ public class Enemy : MonoBehaviour
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 1.5f;
 
-            Instantiate(dropHealth, spawnPosition, Quaternion.identity);
-            //Instantiate(dropHealthPotion, spawnPosition, Quaternion.identity);
+            //Instantiate(dropHealth, spawnPosition, Quaternion.identity);
+            Instantiate(dropHealthPotion, spawnPosition, Quaternion.identity);
             Player temp = player.GetComponent<Player>();
             if (temp != null)
             {

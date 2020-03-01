@@ -19,12 +19,13 @@ public class Player : MonoBehaviour
     private float movementSpeed = 15.0f;
     private float attackSpeed = 3f;
     private float playerDamage = 10f;
-    private float playerManaRegeneration = 0.2f;
+    private float playerManaRegeneration = 0.1f;
+    private float playerHealthRegen = 0.05f;
 
     //HP and MANA system
     [SerializeField]
-    private int playerHealth;
-    public int PlayerHealth
+    private float playerHealth;
+    public float PlayerHealth
     {
         get
         {
@@ -80,7 +81,7 @@ public class Player : MonoBehaviour
     private Image canRangedAttack;
     private Color canRangedAttackColor = Color.green;
     private Color canNotRangedAttackColor = Color.gray;
-    
+
 
     void Start()
     {
@@ -96,6 +97,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         getMana(playerManaRegeneration);
+        addHealthToPlayer(playerHealthRegen, null);
+
         DisplayManaAndHealth();
         transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
         transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
@@ -213,9 +216,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void addHealthToPlayer(int amount, Collider other)
+    private void addHealthToPlayer(float amount, Collider other)
     {
-        Destroy(other.gameObject);
+        if (other != null)
+        {
+            Destroy(other.gameObject);
+        }
         playerHealth += amount;
         if (playerHealth > playerMaxHealth)
         {
@@ -251,7 +257,7 @@ public class Player : MonoBehaviour
     }
     private void rescaleHealthBar()
     {
-        Healthbar.transform.localScale = new Vector3((float)playerHealth / (float)playerMaxHealth, 1.0f, 1.0f);
+        Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
     }
     public void DamagePlayer(int damageAmount)
     {
@@ -301,7 +307,7 @@ public class Player : MonoBehaviour
 
     private void rescaleManaBar()
     {
-        ManaBar.transform.localScale = new Vector3((float)playerMana / (float)playerMaxMana, 1.0f, 1.0f);
+        ManaBar.transform.localScale = new Vector3(playerMana / playerMaxMana, 1.0f, 1.0f);
     }
     IEnumerator ChangeMaterial()
     {
@@ -342,7 +348,7 @@ public class Player : MonoBehaviour
     {
         playerExperiencePoints = 0;
         playerLevel = 1;
-        playerExperienceNeeded = 10;
+        playerExperienceNeeded = 5;
         playerExperienceBar.value = playerExperiencePoints;
         playerExperienceBar.maxValue = playerExperienceNeeded;
         playerCurrentLevelText.text = "Level: " + playerLevel;
@@ -367,7 +373,7 @@ public class Player : MonoBehaviour
 
     private void DisplayManaAndHealth()
     {
-        healthText.text = playerHealth + "/" + playerMaxHealth;
+        healthText.text = (int)playerHealth + "/" + playerMaxHealth;
         manaText.text = (int)playerMana + "/" + playerMaxMana;
     }
 }
