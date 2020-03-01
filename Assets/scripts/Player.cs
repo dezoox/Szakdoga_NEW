@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private float movementSpeed = 15.0f;
     private float attackSpeed = 3f;
     private float playerDamage = 10f;
-    private int playerManaRegeneration = 1;
+    private float playerManaRegeneration = 0.2f;
 
     //HP and MANA system
     [SerializeField]
@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int playerMaxMana = 100;
     [SerializeField]
-    private int playerMana;
+    private float playerMana;
     [SerializeField]
     private Transform Healthbar;
     [SerializeField]
@@ -275,7 +275,7 @@ public class Player : MonoBehaviour
     {
         return playerMana - manaCost > 0;
     }
-    private void getMana(int amount)
+    private void getMana(float amount)
     {
         playerMana += amount;
         if (playerMana > playerMaxMana)
