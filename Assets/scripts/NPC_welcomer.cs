@@ -14,6 +14,10 @@ public class NPC_welcomer : MonoBehaviour
     private GameObject level3_text;
     [SerializeField]
     private GameObject level2Congrat_text;
+    [SerializeField]
+    private GameObject boostPickedUpText;
+    [SerializeField]
+    private GameObject hasWonText;
     private float welcomeTextTimer = 0.0f;
 
     private GameObject NPCWelcomer_canvas;
@@ -47,19 +51,28 @@ public class NPC_welcomer : MonoBehaviour
             {
                 welcomeText.SetActive(false);
             }
-            if (player.PlayerLevel == 1)
+            if (player.PlayerLevel == 1 && !player.IsBoostPickedUp)
             {
                 ActivateTextForSeconds(welcomeText2, 30.0f);
             }
 
-            if (player.PlayerLevel == 2)
+            if (player.PlayerLevel == 2 && !player.IsBoostPickedUp)
             {
                 ActivateTextForSeconds(level2Congrat_text, 30.0f);
             }
-            if(player.PlayerLevel == 3)
+            if(player.PlayerLevel == 3 && !player.IsBoostPickedUp)
             {
                 ActivateTextForSeconds(level3_text, 30.0f);
             }
+            if (player.IsBoostPickedUp && !player.HasKilledBoss)
+            {
+                ActivateTextForSeconds(boostPickedUpText, 30f);
+            }
+            if (player.HasKilledBoss)
+            {
+                ActivateTextForSeconds(hasWonText, 30f);
+            }
+
         }
     }
 

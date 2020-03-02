@@ -8,7 +8,24 @@ public class Player : MonoBehaviour
     public Material basicMaterial;
     public Material hurtMaterial;
     private Rigidbody playerRigidBody;
-
+    private GameObject boostLight;
+    private bool isBoostPickedUp = false;
+    public bool IsBoostPickedUp
+    {
+        get
+        {
+            return isBoostPickedUp;
+        }
+    }
+    [SerializeField]
+    private bool hasKilledBoss = false;
+    public bool HasKilledBoss
+    {
+        get
+        {
+            return hasKilledBoss;
+        }
+    }
     private float timer = 0;
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
@@ -19,7 +36,7 @@ public class Player : MonoBehaviour
     //Player stats
     private float movementSpeed = 10.0f;
     private float attackSpeed = 3f;
-    private float playerDamage = 10f;
+    private float playerDamage = 20f;
     private float playerManaRegeneration = 0.1f;
     private float playerHealthRegen = 0.05f;
 
@@ -87,6 +104,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();
+        boostLight = GameObject.Find("Boost_Light");
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
         rend = GetComponent<Renderer>();
@@ -104,7 +122,7 @@ public class Player : MonoBehaviour
         DisplayManaAndHealth();
 
         Movement();
-        
+
 
         if (hasEnoughMana(rangedAttack.ManaCost))
         {
@@ -159,8 +177,6 @@ public class Player : MonoBehaviour
     }
     private void Movement()
     {
-        //transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
-        //transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -208,6 +224,25 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "HealthPotion")
         {
             heal(collision.collider, true);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Boost")
+        {
+            if (playerLevel > 2)
+            {
+                isBoostPickedUp = true;
+                boostLight.SetActive(false);
+                Destroy(other.gameObject);
+                playerMaxHealth += 400;
+                addHealthToPlayer(200, null);
+                playerMaxMana += 400;
+                getMana(200);
+                playerDamage = 90f;
+                updatePlayerStats();
+            }
         }
     }
 
@@ -351,9 +386,7 @@ public class Player : MonoBehaviour
         playerCurrentLevelText.text = "Level: " + playerLevel.ToString();
 
         playerMaxHealth += 10;
-        rescaleHealthBar();
         playerMaxMana += 10;
-        rescaleManaBar();
 
         updatePlayerStats();
     }
@@ -376,6 +409,8 @@ public class Player : MonoBehaviour
         findAndWriteText("stat_attackSpeed", attackSpeed.ToString());
         findAndWriteText("stat_maxMana", playerMaxMana.ToString());
         findAndWriteText("stat_maxHealth", playerMaxHealth.ToString());
+        rescaleHealthBar();
+        rescaleManaBar();
         playerStats.SetActive(false);
     }
 

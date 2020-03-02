@@ -93,7 +93,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1, z: 8}
+  m_Size: {x: 6, y: 1, z: 6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3004984263287928525
 MonoBehaviour:
@@ -109,9 +109,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   welcomeText: {fileID: 0}
   welcomeText2: {fileID: 0}
-  welcomeText3: {fileID: 0}
-  startingText: {fileID: 0}
+  level3_text: {fileID: 0}
   level2Congrat_text: {fileID: 0}
+  boostPickedUpText: {fileID: 0}
+  hasWonText: {fileID: 0}
 --- !u!54 &3004984263287928530
 Rigidbody:
   m_ObjectHideFlags: 0
