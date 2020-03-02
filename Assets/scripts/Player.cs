@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;
-    private Rigidbody playerRigidBody;
     private GameObject boostLight;
+    [SerializeField]
     private bool isBoostPickedUp = false;
     public bool IsBoostPickedUp
     {
@@ -25,10 +25,14 @@ public class Player : MonoBehaviour
         {
             return hasKilledBoss;
         }
+        set
+        {
+            hasKilledBoss = value;
+        }
     }
     private float timer = 0;
     private bool isCameraRotates = false;
-    private float mouseSpeed = 50.0f;
+    private float mouseSpeed = 20.0f;
     Renderer rend;
 
     public Ranged_attack rangedAttack;
@@ -100,10 +104,11 @@ public class Player : MonoBehaviour
     private Color canRangedAttackColor = Color.green;
     private Color canNotRangedAttackColor = Color.gray;
 
+    private Vector3 spawnPosition = new Vector3(142.3f,1f,627.4f);
 
     void Start()
     {
-        playerRigidBody = GetComponent<Rigidbody>();
+        transform.position = spawnPosition;
         boostLight = GameObject.Find("Boost_Light");
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
@@ -213,6 +218,19 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
+        if(other.tag == "Boss")
+        {
+            timer += Time.deltaTime;
+            if (timer > attackSpeed)
+            {
+                BOSS boss = other.GetComponent<BOSS>();
+                if (boss != null)
+                {
+                    boss.DamageEnemy(playerDamage);
+                }
+                timer = 0.0f;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -237,9 +255,9 @@ public class Player : MonoBehaviour
                 boostLight.SetActive(false);
                 Destroy(other.gameObject);
                 playerMaxHealth += 400;
-                addHealthToPlayer(200, null);
+                addHealthToPlayer(400, null);
                 playerMaxMana += 400;
-                getMana(200);
+                getMana(400);
                 playerDamage = 90f;
                 updatePlayerStats();
             }

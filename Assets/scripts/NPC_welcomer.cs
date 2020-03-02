@@ -18,6 +18,7 @@ public class NPC_welcomer : MonoBehaviour
     private GameObject boostPickedUpText;
     [SerializeField]
     private GameObject hasWonText;
+    private GameObject boss;
     private float welcomeTextTimer = 0.0f;
 
     private GameObject NPCWelcomer_canvas;
@@ -28,6 +29,8 @@ public class NPC_welcomer : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        boss.SetActive(false);
         ActivateTextForSeconds(welcomeText, 4.0f);
         NPCWelcomer_canvas = GameObject.FindGameObjectWithTag("NPCWelcomer_canvas");
     }
@@ -67,6 +70,7 @@ public class NPC_welcomer : MonoBehaviour
             if (player.IsBoostPickedUp && !player.HasKilledBoss)
             {
                 ActivateTextForSeconds(boostPickedUpText, 30f);
+                boss.SetActive(true);
             }
             if (player.HasKilledBoss)
             {
