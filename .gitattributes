@@ -3,3 +3,4 @@
 *.png filter=lfs diff=lfs merge=lfs -text
 LightningData.asset filter=lfs diff=lfs merge=lfs -text
 LightingData.asset filter=lfs diff=lfs merge=lfs -text
+wood_tiled_01_n.tif filter=lfs diff=lfs merge=lfs -text
