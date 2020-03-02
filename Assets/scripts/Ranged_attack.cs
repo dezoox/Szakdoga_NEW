@@ -55,5 +55,14 @@ public class Ranged_attack : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+        if (other.tag == "Boss")
+        {
+            BOSS enemy = other.GetComponent<BOSS>();
+            if (enemy != null)
+            {
+                enemy.DamageEnemy(damage);
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

@@ -404,7 +404,9 @@ public class Player : MonoBehaviour
         playerCurrentLevelText.text = "Level: " + playerLevel.ToString();
 
         playerMaxHealth += 10;
+        playerHealth = playerMaxHealth;
         playerMaxMana += 10;
+        playerMana = playerMaxMana;
 
         updatePlayerStats();
     }
