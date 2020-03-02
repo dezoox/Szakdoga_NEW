@@ -975,7 +975,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134482862, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
       propertyPath: m_Constraints
-      value: 116
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 121286912, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}

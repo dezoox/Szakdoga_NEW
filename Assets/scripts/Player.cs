@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public Ranged_attack rangedAttack;
 
     //Player stats
-    private float movementSpeed = 15.0f;
+    private float movementSpeed = 10.0f;
     private float attackSpeed = 3f;
     private float playerDamage = 10f;
     private float playerManaRegeneration = 0.1f;
@@ -159,40 +159,14 @@ public class Player : MonoBehaviour
     }
     private void Movement()
     {
-        transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
-        transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
+        //transform.position += Input.GetAxis("Horizontal") * transform.right * movementSpeed / 2 * Time.deltaTime;
+        //transform.position += Input.GetAxis("Vertical") * transform.forward * movementSpeed * Time.deltaTime;
 
-        //float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-        //Vector3 movementX = Camera.main.transform.right * horizontal;
-        //Vector3 movementZ = Camera.main.transform.forward * vertical;
-        //Vector3 movement = movementX + movementZ;
-        //playerRigidBody.AddForce(movement * movementSpeed);
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    var camDir = Camera.main.transform.TransformDirection(Vector3.forward);
-        //    //camDir.y = 0.0f;
-        //    playerRigidBody.velocity = camDir.normalized * movementSpeed * Time.deltaTime;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    var camDir2 = Camera.main.transform.TransformDirection(Vector3.back);
-        //    //camDir2.z = 0.0f;
-        //    playerRigidBody.velocity = camDir2.normalized * movementSpeed * Time.deltaTime;
-        //}
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    var camDir3 = Camera.main.transform.TransformDirection(Vector3.left);
-        //    //camDir3.z = 0.0f;
-        //    playerRigidBody.velocity = camDir3.normalized * movementSpeed * Time.deltaTime;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    var camDir4 = Camera.main.transform.TransformDirection(Vector3.right);
-        //   // camDir4.z = 0.0f;
-        //    playerRigidBody.velocity = camDir4.normalized * movementSpeed * Time.deltaTime;
-        //}
-
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 movement = new Vector3(horizontal, 0f, vertical);
+        movement = movement.normalized * Time.deltaTime * movementSpeed;
+        transform.Translate(movement, Space.Self);
     }
 
     private void OnTriggerStay(Collider other)
