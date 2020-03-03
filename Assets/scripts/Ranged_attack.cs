@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.scripts.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +14,11 @@ public class Ranged_attack : MonoBehaviour
             return manaCost;
         }
     }
-
     private int damage = 55;
+
     private GameObject player;
     private Vector3 direction;
+
     private float DestroyTimer = 0.0f;
     private float TimeWhenDestroy = 10.0f;
     void Start()
@@ -28,7 +30,7 @@ public class Ranged_attack : MonoBehaviour
     void Update()
     {
         DestroyTimer += Time.deltaTime;
-        if(DestroyTimer > TimeWhenDestroy)
+        if (DestroyTimer > TimeWhenDestroy)
         {
             Destroy(this.gameObject);
         }
@@ -43,8 +45,8 @@ public class Ranged_attack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.DamageEnemy(damage);
-                Destroy(this.gameObject);
             }
+            Destroy(this.gameObject);
         }
         if (other.tag == "PatrollingEnemy")
         {
@@ -52,8 +54,8 @@ public class Ranged_attack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.DamageEnemy(damage);
-                Destroy(this.gameObject);
             }
+            Destroy(this.gameObject);
         }
         if (other.tag == "Boss")
         {
@@ -61,8 +63,8 @@ public class Ranged_attack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.DamageEnemy(damage);
-                Destroy(this.gameObject);
             }
+            Destroy(this.gameObject);
         }
     }
 }

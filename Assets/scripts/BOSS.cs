@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Assets.scripts.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BOSS : MonoBehaviour
+public class BOSS : MonoBehaviour, IEnemy
 {
     public Material basicMaterial;
     public Material hurtMaterial;
@@ -69,7 +70,6 @@ public class BOSS : MonoBehaviour
             {
                 temp.GetExperience(expreienceReward);
             }
-
             Destroy(this.gameObject);
             temp.HasKilledBoss = true;
         }

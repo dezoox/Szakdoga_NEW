@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.scripts.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class PatrollingEnemy : MonoBehaviour
+public class PatrollingEnemy : MonoBehaviour, IEnemy
 {
     public Material basicMaterial;
     public Material hurtMaterial;
@@ -115,11 +116,10 @@ public class PatrollingEnemy : MonoBehaviour
         }
         if (enemyHealth <= 0)
         {
-            
             Vector3 spawnPosition = transform.position;
-            Destroy(this.gameObject);
             spawnPosition.y = 1.5f;
-
+            Destroy(this.gameObject);
+            
             Player temp = player.GetComponent<Player>();
             if (temp != null)
             {

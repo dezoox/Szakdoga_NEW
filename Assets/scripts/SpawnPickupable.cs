@@ -7,6 +7,7 @@ public class SpawnPickupable : MonoBehaviour
     public GameObject item;
     private Transform player;
     private float spawnDistance = 3f;
+    private Vector3 spawnPosition = Vector3.zero;
 
     private void Start()
     {
@@ -14,8 +15,7 @@ public class SpawnPickupable : MonoBehaviour
     }
     public void SpawnDroppedItem()
     {
-        Vector3 spawnPosition = player.position + player.forward*spawnDistance;
-
+        spawnPosition = player.position + player.forward * spawnDistance;
         Instantiate(item, spawnPosition, Quaternion.identity);
     }
 }
