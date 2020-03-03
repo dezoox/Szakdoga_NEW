@@ -5,13 +5,20 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
+    #region Player and camera movement
     private CharacterController characterController;
     private float gravity = 200f;
     public Transform cameraParent;
     Vector2 rotation = Vector2.zero;
     Vector3 movement = Vector3.zero;
     private float clampYRange = 27;
+    private float timer = 0;
+    private bool isCameraRotates = false;
+    private float mouseSpeed = 10.0f; 
+    #endregion
 
+    //
     public Material basicMaterial;
     public Material hurtMaterial;
     private GameObject boostLight;
@@ -37,21 +44,19 @@ public class Player : MonoBehaviour
             hasKilledBoss = value;
         }
     }
-    private float timer = 0;
-    private bool isCameraRotates = false;
-    private float mouseSpeed = 10.0f;
     Renderer rend;
 
-    public Ranged_attack rangedAttack;
-
-    //Player stats
+    #region Player Stats
+    [SerializeField]
+    private GameObject playerStats;
     private float movementSpeed = 10.0f;
     private float attackSpeed = 1f;
     private float playerDamage = 20f;
     private float playerManaRegeneration = 0.1f;
     private float playerHealthRegen = 0.05f;
+    #endregion
 
-    //HP and MANA system
+    #region Player health and mana system
     [SerializeField]
     private float playerHealth;
     public float PlayerHealth
@@ -78,13 +83,13 @@ public class Player : MonoBehaviour
     private Transform Healthbar;
     [SerializeField]
     private Transform ManaBar;
-
     [SerializeField]
     private Text healthText;
     [SerializeField]
     private Text manaText;
+    #endregion
 
-    //Leveling system
+    #region Player Level System
     [SerializeField]
     private int playerExperiencePoints;
     [SerializeField]
@@ -96,77 +101,54 @@ public class Player : MonoBehaviour
             return playerLevel;
         }
     }
-
     [SerializeField]
     private int playerExperienceNeeded;
     [SerializeField]
     private Slider playerExperienceBar;
     [SerializeField]
     private Text playerCurrentLevelText;
+    #endregion
 
-    [SerializeField]
-    private GameObject playerStats;
-
+    #region Ranged Attack
+    private Vector3 rangedAttackSpawnPosition = Vector3.zero;
+    public Ranged_attack rangedAttack;
     private Image canRangedAttack;
     private Color canRangedAttackColor = Color.green;
     private Color canNotRangedAttackColor = Color.gray;
+    private Vector3 spawnPosition = new Vector3(142.3f, 1f, 627.4f);
+    #endregion
 
-    private Vector3 spawnPosition = new Vector3(142.3f,1f,627.4f);
 
     void Start()
     {
+        FindComponents();
+
         rotation.y = transform.eulerAngles.y;
-        characterController = GetComponent<CharacterController>();
         transform.position = spawnPosition;
+
+        setPlayerStartingStats();
+        updatePlayerStatsUI();
+    }
+    private void FindComponents()
+    {
+        characterController = GetComponent<CharacterController>();
         boostLight = GameObject.Find("Boost_Light");
-        playerHealth = playerMaxHealth;
-        playerMana = playerMaxMana;
         rend = GetComponent<Renderer>();
         canRangedAttack = GameObject.FindGameObjectWithTag("RangedAttackIcon").GetComponent<Image>();
-        canRangedAttack.color = canRangedAttackColor;
-        setPlayerStartingExp();
-        updatePlayerStats();
     }
 
     void Update()
     {
-        getMana(playerManaRegeneration);
-        addHealthToPlayer(playerHealthRegen, null);
 
-        DisplayManaAndHealth();
-
+        regenerateManaAndHealth();
+        displayManaAndHealth();
         Movement();
-        
-        if (hasEnoughMana(rangedAttack.ManaCost))
-        {
-            canRangedAttack.color = canRangedAttackColor;
-        }
-        else
-        {
-            canRangedAttack.color = canNotRangedAttackColor;
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            playerStats.SetActive(true);
-        }
-        else if (Input.GetKeyUp(KeyCode.C))
-        {
-            playerStats.SetActive(false);
-        }
+        decideRangedAttackIconColor();
+        showPlayerStatsIfKeyPressed(KeyCode.C);
+        moveCameraIFButtonPressed(1);
+        shootIfKeyDown(KeyCode.Alpha1);
 
-        if (isCameraRotates)
-        {
-            CameraRotation();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            isCameraRotates = true;
-        }
-        if (Input.GetMouseButtonUp(1))
-        {
-            isCameraRotates = false;
-        }
-
+        //LATER THIS HAVE TO BE REMOVED, ITS JUST FOR TESTING PURPOSES
         if (Input.GetKeyDown(KeyCode.R))
         {
             DamagePlayer(25);
@@ -175,18 +157,7 @@ public class Player : MonoBehaviour
         {
             getMana(10);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Vector3 spawnPosition = transform.position;
-            spawnPosition.y += 0.5f;
-
-            if (hasEnoughMana(rangedAttack.ManaCost))
-            {
-                Instantiate(rangedAttack, spawnPosition, Quaternion.identity);
-                SpendMana(rangedAttack.ManaCost);
-            }
-        }
+        
     }
     private void Movement()
     {
@@ -201,14 +172,7 @@ public class Player : MonoBehaviour
         characterController.Move(movement * Time.deltaTime);
 
     }
-    private void CameraRotation()
-    {
-        rotation.y += Input.GetAxis("Mouse X") * mouseSpeed;
-        rotation.x -= Input.GetAxis("Mouse Y") * mouseSpeed;
-        rotation.x = Mathf.Clamp(rotation.x, -clampYRange, clampYRange);
-        cameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
-        transform.eulerAngles = new Vector2(0, rotation.y);
-    }
+    
 
     private void OnTriggerStay(Collider other)
     {
@@ -238,7 +202,7 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
-        if(other.tag == "Boss")
+        if (other.tag == "Boss")
         {
             timer += Time.deltaTime;
             if (timer > attackSpeed)
@@ -276,10 +240,10 @@ public class Player : MonoBehaviour
                 Destroy(other.gameObject);
                 playerMaxHealth += 400;
                 addHealthToPlayer(400, null);
-                playerMaxMana += 400;
-                getMana(400);
+                playerMaxMana += 200;
+                getMana(200);
                 playerDamage = 90f;
-                updatePlayerStats();
+                updatePlayerStatsUI();
             }
         }
     }
@@ -342,10 +306,7 @@ public class Player : MonoBehaviour
             Destroy(potionImage);
         }
     }
-    private void rescaleHealthBar()
-    {
-        Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
-    }
+    
     public void DamagePlayer(int damageAmount)
     {
         playerHealth -= damageAmount;
@@ -360,22 +321,16 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void SpendMana(int spentMana)
+    private void spendMana(int spentMana)
     {
-        if (hasEnoughMana(spentMana))
+        playerMana -= spentMana;
+        rescaleManaBar();
+        if (playerMana < 0)
         {
-            playerMana -= spentMana;
-            rescaleManaBar();
-            if (playerMana < 0)
-            {
-                playerMana = 0;
-            }
-        }
-        else
-        {
-            Debug.Log("Nincs elég mana");
+            playerMana = 0;
         }
     }
+
 
     private bool hasEnoughMana(int manaCost)
     {
@@ -395,6 +350,10 @@ public class Player : MonoBehaviour
     private void rescaleManaBar()
     {
         ManaBar.transform.localScale = new Vector3(playerMana / playerMaxMana, 1.0f, 1.0f);
+    }
+    private void rescaleHealthBar()
+    {
+        Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
     }
     IEnumerator ChangeMaterial()
     {
@@ -428,9 +387,19 @@ public class Player : MonoBehaviour
         playerMaxMana += 10;
         playerMana = playerMaxMana;
 
-        updatePlayerStats();
+        updatePlayerStatsUI();
     }
 
+    private void setPlayerStartingStats()
+    {
+        setPlayerStartingHealthAndMana();
+        setPlayerStartingExp();
+    }
+    private void setPlayerStartingHealthAndMana()
+    {
+        playerHealth = playerMaxHealth;
+        playerMana = playerMaxMana;
+    }
     private void setPlayerStartingExp()
     {
         playerExperiencePoints = 0;
@@ -440,7 +409,7 @@ public class Player : MonoBehaviour
         playerExperienceBar.maxValue = playerExperienceNeeded;
         playerCurrentLevelText.text = "Level: " + playerLevel;
     }
-    private void updatePlayerStats()
+    private void updatePlayerStatsUI()
     {
         playerStats.SetActive(true);
         findAndWriteText("stat_manaRegeneration", playerManaRegeneration.ToString());
@@ -460,9 +429,79 @@ public class Player : MonoBehaviour
         temp.text = text;
     }
 
-    private void DisplayManaAndHealth()
+    private void displayManaAndHealth()
     {
         healthText.text = (int)playerHealth + "/" + playerMaxHealth;
         manaText.text = (int)playerMana + "/" + playerMaxMana;
+    }
+
+
+    private void regenerateManaAndHealth()
+    {
+        getMana(playerManaRegeneration);
+        addHealthToPlayer(playerHealthRegen, null);
+    }
+
+    private void decideRangedAttackIconColor()
+    {
+        if (hasEnoughMana(rangedAttack.ManaCost))
+        {
+            canRangedAttack.color = canRangedAttackColor;
+        }
+        else
+        {
+            canRangedAttack.color = canNotRangedAttackColor;
+        }
+    }
+
+    private void showPlayerStatsIfKeyPressed(KeyCode key)
+    {
+        if (Input.GetKeyDown(key))
+        {
+            playerStats.SetActive(true);
+        }
+        else if (Input.GetKeyUp(key))
+        {
+            playerStats.SetActive(false);
+        }
+    }
+
+    private void moveCameraIFButtonPressed(int buttonNumber)
+    {
+        if (isCameraRotates)
+        {
+            cameraRotation();
+        }
+        if (Input.GetMouseButtonDown(buttonNumber))
+        {
+            isCameraRotates = true;
+        }
+        if (Input.GetMouseButtonUp(buttonNumber))
+        {
+            isCameraRotates = false;
+        }
+    }
+    private void cameraRotation()
+    {
+        rotation.y += Input.GetAxis("Mouse X") * mouseSpeed;
+        rotation.x -= Input.GetAxis("Mouse Y") * mouseSpeed;
+        rotation.x = Mathf.Clamp(rotation.x, -clampYRange, clampYRange);
+        cameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
+        transform.eulerAngles = new Vector2(0, rotation.y);
+    }
+
+    private void shootIfKeyDown(KeyCode key)
+    {
+        if (Input.GetKeyDown(key))
+        {
+            rangedAttackSpawnPosition = transform.position;
+            rangedAttackSpawnPosition.y += 0.5f;
+
+            if (hasEnoughMana(rangedAttack.ManaCost))
+            {
+                Instantiate(rangedAttack, rangedAttackSpawnPosition, Quaternion.identity);
+                spendMana(rangedAttack.ManaCost);
+            }
+        }
     }
 }
