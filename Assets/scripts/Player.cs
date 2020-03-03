@@ -171,7 +171,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Vector3 spawnPosition = transform.position;
-            spawnPosition.y = 1.5f;
+            spawnPosition.y += 0.5f;
 
             if (hasEnoughMana(rangedAttack.ManaCost))
             {
