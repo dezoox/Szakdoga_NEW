@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private CharacterController characterController;
-    private float gravity = 20f;
+    private float gravity = 200f;
     public Transform cameraParent;
     Vector2 rotation = Vector2.zero;
     Vector3 movement = Vector3.zero;
