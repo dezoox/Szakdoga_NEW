@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
     //Player stats
     private float movementSpeed = 10.0f;
-    private float attackSpeed = 3f;
+    private float attackSpeed = 1f;
     private float playerDamage = 20f;
     private float playerManaRegeneration = 0.1f;
     private float playerHealthRegen = 0.05f;

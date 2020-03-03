@@ -27,7 +27,7 @@ public class PatrollingEnemy : MonoBehaviour
     private GameObject player;
     private float recognizeRange = 10.0f;
     private float timer;
-    private float timeBetweenAttacks = 2.6f;
+    private float timeBetweenAttacks = 1.1f;
     [SerializeField]
     private float enemyHealth;
     private float enemyMaxHealth = 100;

@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private float enemyMaxHealth = 100;
     [SerializeField]
     private int enemyDamage;
-    private float timeBetweenAttacks = 3f;
+    private float timeBetweenAttacks = 1.3f;
     private float timer = 0;
     public GameObject dropHealth;
     [SerializeField]
