@@ -141,8 +141,8 @@ GameObject:
   - component: {fileID: 2265417438264836062}
   - component: {fileID: 169991887}
   - component: {fileID: 121286913}
-  - component: {fileID: 121286912}
-  - component: {fileID: 2134482862}
+  - component: {fileID: 1995166513}
+  - component: {fileID: 1995166514}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -223,8 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b3e5164b00faa498f59e5443eabf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraParent: {fileID: 8993189138350297945}
   basicMaterial: {fileID: 2100000, guid: a8b701df5c732144aa614107ca60018c, type: 2}
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
+  isBoostPickedUp: 0
+  hasKilledBoss: 0
   rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
     type: 3}
   playerHealth: 0
@@ -252,8 +255,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.2937698, y: 2.3914275, z: 1.4397354}
-  m_Center: {x: -0.09620285, y: 0.19571376, z: -0.062465668}
+  m_Size: {x: 2.3, y: 2.3, z: 2.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &121286913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +276,25 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!136 &121286912
+--- !u!143 &1995166513
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087634037391286621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5000001
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1995166514
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,23 +304,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &2134482862
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9087634037391286621}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0

@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    private CharacterController characterController;
+    private float gravity = 20f;
+    public Transform cameraParent;
+    Vector2 rotation = Vector2.zero;
+    Vector3 movement = Vector3.zero;
+    private float clampYRange = 27;
+
     public Material basicMaterial;
     public Material hurtMaterial;
     private GameObject boostLight;
@@ -32,7 +39,7 @@ public class Player : MonoBehaviour
     }
     private float timer = 0;
     private bool isCameraRotates = false;
-    private float mouseSpeed = 20.0f;
+    private float mouseSpeed = 10.0f;
     Renderer rend;
 
     public Ranged_attack rangedAttack;
@@ -108,6 +115,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        rotation.y = transform.eulerAngles.y;
+        characterController = GetComponent<CharacterController>();
         transform.position = spawnPosition;
         boostLight = GameObject.Find("Boost_Light");
         playerHealth = playerMaxHealth;
@@ -127,8 +136,7 @@ public class Player : MonoBehaviour
         DisplayManaAndHealth();
 
         Movement();
-
-
+        
         if (hasEnoughMana(rangedAttack.ManaCost))
         {
             canRangedAttack.color = canRangedAttackColor;
@@ -148,7 +156,7 @@ public class Player : MonoBehaviour
 
         if (isCameraRotates)
         {
-            transform.Rotate(transform.up, Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime);
+            CameraRotation();
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -182,12 +190,24 @@ public class Player : MonoBehaviour
     }
     private void Movement()
     {
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        float Xspeed = movementSpeed * Input.GetAxis("Vertical");
+        float Yspeed = movementSpeed * Input.GetAxis("Horizontal");
+        Yspeed /= 2;
+        movement = (forward * Xspeed) + (right * Yspeed);
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 movement = new Vector3(horizontal, 0f, vertical);
-        movement = movement.normalized * Time.deltaTime * movementSpeed;
-        transform.Translate(movement, Space.Self);
+        movement.y -= gravity * Time.deltaTime;
+        characterController.Move(movement * Time.deltaTime);
+
+    }
+    private void CameraRotation()
+    {
+        rotation.y += Input.GetAxis("Mouse X") * mouseSpeed;
+        rotation.x -= Input.GetAxis("Mouse Y") * mouseSpeed;
+        rotation.x = Mathf.Clamp(rotation.x, -clampYRange, clampYRange);
+        cameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
+        transform.eulerAngles = new Vector2(0, rotation.y);
     }
 
     private void OnTriggerStay(Collider other)

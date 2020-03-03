@@ -350,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 503111067031055824, guid: a7ef2b5ebe17d84418f7790f11c06b03,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (1)
+      value: Enemy_spawn
       objectReference: {fileID: 0}
     - target: {fileID: 503111067031055824, guid: a7ef2b5ebe17d84418f7790f11c06b03,
         type: 3}
@@ -2821,11 +2821,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3909460616485298336, guid: 2bd617c3c272f0145b891121c9d0b969,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2265417438264836062, guid: 2bd617c3c272f0145b891121c9d0b969,
         type: 3}
       propertyPath: Healthbar
@@ -2881,56 +2876,8 @@ PrefabInstance:
       propertyPath: slots.Array.data[4]
       value: 
       objectReference: {fileID: 1902672225}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Center.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Size.x
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Size.y
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Size.z
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 169991887, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 121286912, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 121286912, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Radius
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134482862, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2134482862, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 121286912, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
+    - {fileID: 2082248311, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
 --- !u!1001 &1165433408
 PrefabInstance:
@@ -6422,26 +6369,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1981882450}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1995166512 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9087634037391286621, guid: 2bd617c3c272f0145b891121c9d0b969,
-    type: 3}
-  m_PrefabInstance: {fileID: 1165030852}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1995166514
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995166512}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1999880593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 440048, guid: 1109e71607c99e34c9a831260139cd7a,
