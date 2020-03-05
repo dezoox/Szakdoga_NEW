@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
 
     #region Player and camera movement
+    private Vector3 spawnPosition = new Vector3(142.3f, 1f, 627.4f);
     private CharacterController characterController;
     private float gravity = 200f;
     public Transform cameraParent;
@@ -115,7 +116,7 @@ public class Player : MonoBehaviour
     private Image canRangedAttack;
     private Color canRangedAttackColor = Color.green;
     private Color canNotRangedAttackColor = Color.gray;
-    private Vector3 spawnPosition = new Vector3(142.3f, 1f, 627.4f);
+    
     #endregion
 
 

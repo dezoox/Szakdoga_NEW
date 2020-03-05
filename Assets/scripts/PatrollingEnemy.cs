@@ -12,6 +12,7 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
     public Material basicMaterial;
     public Material hurtMaterial;
     Renderer rend;
+    private NavMeshAgent nav;
 
     private float movementSpeed = 3.0f;
     private float rotationSpeed = 100f;
@@ -44,6 +45,7 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
     void Start()
     {
         rend = GetComponent<Renderer>();
+        nav = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         enemyHealth = enemyMaxHealth;
         enemyDamage = 17;
@@ -119,7 +121,7 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
             Vector3 spawnPosition = transform.position;
             spawnPosition.y = 1.5f;
             Destroy(this.gameObject);
-            
+
             Player temp = player.GetComponent<Player>();
             if (temp != null)
             {
@@ -143,9 +145,25 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
 
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
 
-        if (direction.magnitude > 2)
+        if (direction.magnitude > 3)
         {
-            this.transform.Translate(0, 0, 0.05f);
+            float distanceBetweenPlayer = Vector3.Distance(this.transform.position, player.transform.position);
+            Debug.Log(distanceBetweenPlayer);
+            if (distanceBetweenPlayer > 3.5f)
+            {
+                Vector3 playerDestination = player.transform.position;
+                nav.SetDestination(playerDestination);
+            }
+            else
+            {
+                nav.ResetPath();
+                nav.isStopped = true;
+            }
+        }
+        else
+        {
+            isWandering = true;
+            nav.isStopped = false;
         }
     }
 

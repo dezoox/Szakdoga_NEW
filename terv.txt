@@ -53,3 +53,12 @@ TODO:
 ötlet:
 -stamina rendszer, bal shift nyomására fut egy darabíg amíg van stamina, (több movement speed), amint elfogy a stamina már nem tud sprintelni, és utána töltődik
 -coint dobnának a szörnyek, elég coin esetén tudna venni a játékos health potiont, ami bekerül az inventoryba.
+
+
+
+-effektek
+-menü, mentés, kilépés, beépített beállítás
+-házba bemenni
+-nézelődő ellenfé (guard)
+-patrolling enemy ha észrevesz, és jön a játékos felé, navmeshel kikerüli ami előtte van
+
