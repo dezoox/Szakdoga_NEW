@@ -13,16 +13,21 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
     public Material hurtMaterial;
     Renderer rend;
     private NavMeshAgent nav;
+    Vector3 playerDestination;
+    Vector3 playerDirection;
 
+    [SerializeField]
     private float movementSpeed = 3.0f;
     private float rotationSpeed = 100f;
     private float rotationWaitTime = 0.5f;
 
     [SerializeField]
     private bool isWandering = false;
-
+    [SerializeField]
     private bool isRotatingLeft = false;
+    [SerializeField]
     private bool isRotatingRight = false;
+    [SerializeField]
     private bool isWalking = false;
 
 
@@ -57,11 +62,16 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
 
         if (RecognizePlayer())
         {
+            nav.isStopped = false;
             isWandering = false;
+            isWalking = false;
+            isRotatingLeft = false;
+            isRotatingRight = false;
             ChasePlayer();
         }
         else
         {
+            nav.isStopped = true;
             if (!isWandering)
             {
                 StartCoroutine(Wander());
@@ -140,31 +150,14 @@ public class PatrollingEnemy : MonoBehaviour, IEnemy
 
     private void ChasePlayer()
     {
-        Vector3 direction = player.transform.position - this.transform.position;
-        direction.y = 0;
+        playerDirection = player.transform.position - this.transform.position;
+        playerDirection.y = 0;
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(playerDirection), 0.1f);
 
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        float distanceBetweenPlayer = Vector3.Distance(this.transform.position, player.transform.position);
 
-        if (direction.magnitude > 3)
-        {
-            float distanceBetweenPlayer = Vector3.Distance(this.transform.position, player.transform.position);
-            Debug.Log(distanceBetweenPlayer);
-            if (distanceBetweenPlayer > 3.5f)
-            {
-                Vector3 playerDestination = player.transform.position;
-                nav.SetDestination(playerDestination);
-            }
-            else
-            {
-                nav.ResetPath();
-                nav.isStopped = true;
-            }
-        }
-        else
-        {
-            isWandering = true;
-            nav.isStopped = false;
-        }
+        playerDestination = player.transform.position;
+        nav.SetDestination(playerDestination);
     }
 
     private bool RecognizePlayer()
