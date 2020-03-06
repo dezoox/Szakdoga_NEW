@@ -177,7 +177,8 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Enemy")
+        string tag = other.tag;
+        if (tag == "Enemy")
         {
             timer += Time.deltaTime;
             if (timer > attackSpeed)
@@ -190,7 +191,7 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
-        if (other.tag == "PatrollingEnemy")
+        if (tag == "PatrollingEnemy")
         {
             timer += Time.deltaTime;
             if (timer > attackSpeed)
@@ -203,7 +204,7 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
-        if (other.tag == "Boss")
+        if (tag == "Boss")
         {
             timer += Time.deltaTime;
             if (timer > attackSpeed)
@@ -220,11 +221,8 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Heal")
-        {
-            heal(collision.collider, false);
-        }
-        if (collision.gameObject.tag == "HealthPotion")
+        string tag = collision.gameObject.tag;
+        if (tag == "HealthPotion")
         {
             heal(collision.collider, true);
         }
@@ -232,7 +230,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Boost")
+        string tag = other.gameObject.tag;
+
+        if (tag == "Boost")
         {
             if (playerLevel > 2)
             {
@@ -246,6 +246,10 @@ public class Player : MonoBehaviour
                 playerDamage = 90f;
                 updatePlayerStatsUI();
             }
+        }
+        if (tag == "Heal")
+        {
+            heal(other, false);
         }
     }
 
