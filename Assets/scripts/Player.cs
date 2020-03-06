@@ -231,7 +231,6 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         string tag = other.gameObject.tag;
-
         if (tag == "Boost")
         {
             if (playerLevel > 2)
