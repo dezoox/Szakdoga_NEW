@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private float clampYRange = 27;
     private float timer = 0;
     private bool isCameraRotates = false;
-    private float mouseSpeed = 10.0f; 
+    private float mouseSpeed = 10.0f;
     #endregion
 
     //
@@ -54,7 +54,8 @@ public class Player : MonoBehaviour
     private float attackSpeed = 1f;
     private float playerDamage = 20f;
     private float playerManaRegeneration = 0.1f;
-    private float playerHealthRegen = 0.05f;
+    //private float playerHealthRegen = 0.05f;
+    private float playerHealthRegen = 0.00f;
     #endregion
 
     #region Player health and mana system
@@ -116,7 +117,7 @@ public class Player : MonoBehaviour
     private Image canRangedAttack;
     private Color canRangedAttackColor = Color.green;
     private Color canNotRangedAttackColor = Color.gray;
-    
+
     #endregion
 
 
@@ -157,7 +158,7 @@ public class Player : MonoBehaviour
         {
             getMana(10);
         }
-        
+
     }
     private void Movement()
     {
@@ -170,9 +171,9 @@ public class Player : MonoBehaviour
 
         movement.y -= gravity * Time.deltaTime;
         characterController.Move(movement * Time.deltaTime);
-
     }
-    
+
+
 
     private void OnTriggerStay(Collider other)
     {
@@ -221,7 +222,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         string tag = other.gameObject.tag;
-        
+
         if (tag == "Heal")
         {
             heal(other, false);
@@ -304,7 +305,7 @@ public class Player : MonoBehaviour
             Destroy(potionImage);
         }
     }
-    
+
     public void DamagePlayer(int damageAmount)
     {
         playerHealth -= damageAmount;

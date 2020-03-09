@@ -92,7 +92,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8993189138350297945}
-  - component: {fileID: 2082248311}
   m_Layer: 0
   m_Name: CameraVertical
   m_TagString: Untagged
@@ -115,18 +114,6 @@ Transform:
   m_Father: {fileID: 3909460616485298336}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2082248311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6864987716852129860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec66c896842ba748914c699dad37b91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9087634037391286621
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +129,6 @@ GameObject:
   - component: {fileID: 169991887}
   - component: {fileID: 121286913}
   - component: {fileID: 1995166513}
-  - component: {fileID: 1995166514}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -228,8 +214,7 @@ MonoBehaviour:
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
   isBoostPickedUp: 0
   hasKilledBoss: 0
-  rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
-    type: 3}
+  playerStats: {fileID: 0}
   playerHealth: 0
   playerMaxHealth: 100
   playerMaxMana: 100
@@ -243,7 +228,8 @@ MonoBehaviour:
   playerExperienceNeeded: 0
   playerExperienceBar: {fileID: 0}
   playerCurrentLevelText: {fileID: 0}
-  playerStats: {fileID: 0}
+  rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
+    type: 3}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -293,18 +279,4 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &1995166514
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9087634037391286621}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

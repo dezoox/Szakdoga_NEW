@@ -26,9 +26,11 @@ public class Enemy : MonoBehaviour, IEnemy
     public Slider slider;
 
     private int expreienceReward = 5;
+    private Vector3 standingPosition;
 
     void Start()
     {
+        standingPosition = transform.position;
         enemyHealth = enemyMaxHealth;
         enemyDamage = 17;
         rend = GetComponent<Renderer>();
@@ -45,6 +47,8 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         if (other.tag == "Player")
         {
+            transform.LookAt(other.transform);
+            DisableMovement();
             timer += Time.deltaTime;
             if (timer > timeBetweenAttacks)
             {
@@ -91,5 +95,13 @@ public class Enemy : MonoBehaviour, IEnemy
     private float getHealthValue()
     {
         return enemyHealth / enemyMaxHealth;
+    }
+    /// <summary>
+    /// Sets the position of the Enemy to the original position where it stood in every frame.
+    /// This is needed so the colliding object cannot push it away in fight.
+    /// </summary>
+    private void DisableMovement()
+    {
+        transform.position = standingPosition;
     }
 }
