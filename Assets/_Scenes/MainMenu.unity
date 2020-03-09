@@ -206,11 +206,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaunchScreenCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 4274201470685322203, guid: 3725f1ff67f875d43a2407c805ddadee,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4274201470685322183, guid: 3725f1ff67f875d43a2407c805ddadee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -315,11 +310,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274201472549505373, guid: 3725f1ff67f875d43a2407c805ddadee,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 7.943932
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3725f1ff67f875d43a2407c805ddadee, type: 3}

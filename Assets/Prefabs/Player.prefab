@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b3e5164b00faa498f59e5443eabf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseCanvas: {fileID: 0}
+  isPauseScreenActive: 0
   cameraParent: {fileID: 8993189138350297945}
   basicMaterial: {fileID: 2100000, guid: a8b701df5c732144aa614107ca60018c, type: 2}
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
@@ -232,7 +234,6 @@ MonoBehaviour:
   isBoostPickedUp: 0
   hasKilledBoss: 0
   DeathScreen: {fileID: 0}
-  pauseCanvas: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0

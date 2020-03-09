@@ -4281,6 +4281,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2265417438264836062, guid: 2bd617c3c272f0145b891121c9d0b969,
         type: 3}
+      propertyPath: pauseCanvas
+      value: 
+      objectReference: {fileID: 8735122450306224819}
+    - target: {fileID: 2265417438264836062, guid: 2bd617c3c272f0145b891121c9d0b969,
+        type: 3}
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 607737365}
@@ -4324,11 +4329,6 @@ PrefabInstance:
       propertyPath: DeathScreen
       value: 
       objectReference: {fileID: 357616028}
-    - target: {fileID: 2265417438264836062, guid: 2bd617c3c272f0145b891121c9d0b969,
-        type: 3}
-      propertyPath: pauseCanvas
-      value: 
-      objectReference: {fileID: 8735122450306224819}
     - target: {fileID: 121286913, guid: 2bd617c3c272f0145b891121c9d0b969, type: 3}
       propertyPath: slots.Array.data[0]
       value: 
@@ -9141,11 +9141,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DeathScreenCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513072871498833805, guid: ba2ce105aaddb234f8f2d0f0110ef4fe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2513072871498833841, guid: ba2ce105aaddb234f8f2d0f0110ef4fe,
         type: 3}
