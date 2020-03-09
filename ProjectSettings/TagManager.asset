@@ -15,6 +15,7 @@ TagManager:
   - NPC
   - NPCWelcomer_canvas
   - Boss
+  - Boost
   layers:
   - Default
   - TransparentFX

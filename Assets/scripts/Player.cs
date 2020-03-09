@@ -140,7 +140,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
         regenerateManaAndHealth();
         displayManaAndHealth();
         Movement();
@@ -219,18 +218,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        string tag = collision.gameObject.tag;
-        if (tag == "HealthPotion")
-        {
-            heal(collision.collider, true);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         string tag = other.gameObject.tag;
+        
+        if (tag == "Heal")
+        {
+            heal(other, false);
+        }
         if (tag == "Boost")
         {
             if (playerLevel > 2)
@@ -246,9 +241,10 @@ public class Player : MonoBehaviour
                 updatePlayerStatsUI();
             }
         }
-        if (tag == "Heal")
+        if (tag == "HealthPotion")
         {
-            heal(other, false);
+            Debug.Log("OnTriggerEnter lefutot hp potira");
+            heal(other, true);
         }
     }
 
