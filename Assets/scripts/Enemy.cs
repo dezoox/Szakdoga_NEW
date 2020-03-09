@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour, IEnemy
 
     void Start()
     {
-        standingPosition = transform.position;
+        
         enemyHealth = enemyMaxHealth;
         enemyDamage = 17;
         rend = GetComponent<Renderer>();
@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         if (other.tag == "Player")
         {
+            standingPosition = transform.position;
             transform.LookAt(other.transform);
             DisableMovement();
             timer += Time.deltaTime;
