@@ -14,13 +14,13 @@ public class LaunchScreenHandler : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         playButton.onClick.AddListener(startGame);
         exitButton.onClick.AddListener(exit);
     }
     private void startGame()
     {
-        defaultTimeScale();
+        //defaultTimeScale();
         SceneManager.LoadScene(gameScene);
     }
     private void exit()

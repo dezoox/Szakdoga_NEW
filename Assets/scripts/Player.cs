@@ -153,26 +153,24 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-
-        regenerateManaAndHealth();
         displayManaAndHealth();
         Movement();
         decideRangedAttackIconColor();
         showPlayerStatsIfKeyPressed(KeyCode.C);
         moveCameraIfButtonPressed(1);
-        shootIfKeyDown(KeyCode.Alpha1);
+        if (!isPauseScreenActive)
+        {
+            shootIfKeyDown(KeyCode.Alpha1);
+            regenerateManaAndHealth();
+        }
+        isPauseScreenActive = pauseCanvas.activeInHierarchy;
+        togglePauseGameOnKeypress(KeyCode.Escape);
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             DamagePlayer(50);
         }
-
-        isPauseScreenActive = pauseCanvas.activeInHierarchy;
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            pauseCanvas.SetActive(!isPauseScreenActive);
-            Time.timeScale = isPauseScreenActive ? 1f : 0f;
-        }
+        
     }
     private void Movement()
     {
@@ -545,5 +543,14 @@ public class Player : MonoBehaviour
 
         playerHealthRegeneration = 0.0f;
         playerManaRegeneration = 0.0f;
+    }
+
+    private void togglePauseGameOnKeypress(KeyCode key)
+    {
+        if (Input.GetKeyDown(key))
+        {
+            pauseCanvas.SetActive(!isPauseScreenActive);
+            Time.timeScale = isPauseScreenActive ? 1f : 0f;
+        }
     }
 }
