@@ -96,6 +96,7 @@ public class Enemy : MonoBehaviour, IEnemy
     {
         return enemyHealth / enemyMaxHealth;
     }
+
     /// <summary>
     /// Sets the position of the Enemy to the original position where it stood in every frame.
     /// This is needed so the colliding object cannot push it away in fight.

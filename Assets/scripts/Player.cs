@@ -53,9 +53,10 @@ public class Player : MonoBehaviour
     private float movementSpeed = 10.0f;
     private float attackSpeed = 1f;
     private float playerDamage = 20f;
-    private float playerManaRegeneration = 0.1f;
-    //private float playerHealthRegen = 0.05f;
-    private float playerHealthRegen = 0.00f;
+    private float playerManaRegeneration = 0.25f;
+    private float playerHealthRegeneration = 0.05f;
+    private float playerManaRegenerationGrowAmount = .05f;
+    private float playerHealthRegenerationGrowAmount = .02f;
     #endregion
 
     #region Player health and mana system
@@ -146,7 +147,7 @@ public class Player : MonoBehaviour
         Movement();
         decideRangedAttackIconColor();
         showPlayerStatsIfKeyPressed(KeyCode.C);
-        moveCameraIFButtonPressed(1);
+        moveCameraIfButtonPressed(1);
         shootIfKeyDown(KeyCode.Alpha1);
 
         //LATER THIS HAVE TO BE REMOVED, ITS JUST FOR TESTING PURPOSES
@@ -386,6 +387,8 @@ public class Player : MonoBehaviour
         playerMaxMana += 10;
         playerMana = playerMaxMana;
 
+        playerManaRegeneration += playerManaRegenerationGrowAmount;
+        playerHealthRegeneration += playerHealthRegenerationGrowAmount;
         updatePlayerStatsUI();
     }
 
@@ -417,6 +420,7 @@ public class Player : MonoBehaviour
         findAndWriteText("stat_attackSpeed", attackSpeed.ToString());
         findAndWriteText("stat_maxMana", playerMaxMana.ToString());
         findAndWriteText("stat_maxHealth", playerMaxHealth.ToString());
+        findAndWriteText("stat_healthRegeneration", playerHealthRegeneration.ToString());
         rescaleHealthBar();
         rescaleManaBar();
         playerStats.SetActive(false);
@@ -438,7 +442,7 @@ public class Player : MonoBehaviour
     private void regenerateManaAndHealth()
     {
         getMana(playerManaRegeneration);
-        addHealthToPlayer(playerHealthRegen, null);
+        addHealthToPlayer(playerHealthRegeneration, null);
     }
 
     private void decideRangedAttackIconColor()
@@ -465,7 +469,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void moveCameraIFButtonPressed(int buttonNumber)
+    private void moveCameraIfButtonPressed(int buttonNumber)
     {
         if (isCameraRotates)
         {
