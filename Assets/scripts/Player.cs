@@ -13,39 +13,17 @@ public class Player : MonoBehaviour
     public Transform cameraParent;
     Vector2 rotation = Vector2.zero;
     Vector3 movement = Vector3.zero;
-    private float clampYRange = 27;
+    private float clampRange = 27;
     private float timer = 0;
     private bool isCameraRotates = false;
-    private float mouseSpeed = 10.0f;
+    private float mouseSpeed = 50.0f;
     #endregion
 
-    //
+    #region Player materials
     public Material basicMaterial;
     public Material hurtMaterial;
-    private GameObject boostLight;
-    [SerializeField]
-    private bool isBoostPickedUp = false;
-    public bool IsBoostPickedUp
-    {
-        get
-        {
-            return isBoostPickedUp;
-        }
-    }
-    [SerializeField]
-    private bool hasKilledBoss = false;
-    public bool HasKilledBoss
-    {
-        get
-        {
-            return hasKilledBoss;
-        }
-        set
-        {
-            hasKilledBoss = value;
-        }
-    }
-    Renderer rend;
+    private Renderer rend;
+    #endregion
 
     #region Player Stats
     [SerializeField]
@@ -123,6 +101,33 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Endgame Content
+    [SerializeField]
+    private bool isBoostPickedUp = false;
+    public bool IsBoostPickedUp
+    {
+        get
+        {
+            return isBoostPickedUp;
+        }
+    }
+    [SerializeField]
+    private bool hasKilledBoss = false;
+    public bool HasKilledBoss
+    {
+        get
+        {
+            return hasKilledBoss;
+        }
+        set
+        {
+            hasKilledBoss = value;
+        }
+    }
+    private GameObject boostLight;
+    [SerializeField]
+    private GameObject DeathScreen;
+    #endregion
 
     void Start()
     {
@@ -152,16 +157,10 @@ public class Player : MonoBehaviour
         moveCameraIfButtonPressed(1);
         shootIfKeyDown(KeyCode.Alpha1);
 
-        //LATER THIS HAVE TO BE REMOVED, ITS JUST FOR TESTING PURPOSES
         if (Input.GetKeyDown(KeyCode.R))
         {
-            DamagePlayer(25);
+            DamagePlayer(50);
         }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            getMana(10);
-        }
-
     }
     private void Movement()
     {
@@ -175,8 +174,6 @@ public class Player : MonoBehaviour
         movement.y -= gravity * Time.deltaTime;
         characterController.Move(movement * Time.deltaTime);
     }
-
-
 
     private void OnTriggerStay(Collider other)
     {
@@ -317,12 +314,14 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(ChangeMaterial());
         }
-        if (playerHealth <= 0)
+        if (playerHealth < 1)
         {
-            playerHealth = 0;
-            Destroy(this.gameObject);
+            setDefaultHealthAndMana();
+            Time.timeScale = 0; // Pause the game
+            DeathScreen.SetActive(true);
         }
     }
+
     private void spendMana(int spentMana)
     {
         playerMana -= spentMana;
@@ -333,11 +332,11 @@ public class Player : MonoBehaviour
         }
     }
 
-
     private bool hasEnoughMana(int manaCost)
     {
         return playerMana - manaCost > 0;
     }
+
     private void getMana(float amount)
     {
         playerMana += amount;
@@ -348,15 +347,16 @@ public class Player : MonoBehaviour
         rescaleManaBar();
     }
 
-
     private void rescaleManaBar()
     {
         ManaBar.transform.localScale = new Vector3(playerMana / playerMaxMana, 1.0f, 1.0f);
     }
+
     private void rescaleHealthBar()
     {
         Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
     }
+
     IEnumerator ChangeMaterial()
     {
         rend.material = hurtMaterial;
@@ -375,6 +375,7 @@ public class Player : MonoBehaviour
             levelUp();
         }
     }
+
     private void levelUp()
     {
         playerExperiencePoints = 0;
@@ -404,11 +405,13 @@ public class Player : MonoBehaviour
         setPlayerStartingHealthAndMana();
         setPlayerStartingExp();
     }
+
     private void setPlayerStartingHealthAndMana()
     {
         playerHealth = playerMaxHealth;
         playerMana = playerMaxMana;
     }
+
     private void setPlayerStartingExp()
     {
         playerExperiencePoints = 0;
@@ -425,6 +428,7 @@ public class Player : MonoBehaviour
     {
         playerCurrentExpText.text = playerExperiencePoints + "/" + playerExperienceNeeded;
     }
+
     private void updatePlayerStatsUI()
     {
         playerStats.SetActive(true);
@@ -451,7 +455,6 @@ public class Player : MonoBehaviour
         healthText.text = (int)playerHealth + "/" + playerMaxHealth;
         manaText.text = (int)playerMana + "/" + playerMaxMana;
     }
-
 
     private void regenerateManaAndHealth()
     {
@@ -498,11 +501,12 @@ public class Player : MonoBehaviour
             isCameraRotates = false;
         }
     }
+
     private void cameraRotation()
     {
-        rotation.y += Input.GetAxis("Mouse X") * mouseSpeed;
-        rotation.x -= Input.GetAxis("Mouse Y") * mouseSpeed;
-        rotation.x = Mathf.Clamp(rotation.x, -clampYRange, clampYRange);
+        rotation.y += Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
+        rotation.x -= Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
+        rotation.x = Mathf.Clamp(rotation.x, -clampRange, clampRange);
         cameraParent.localRotation = Quaternion.Euler(rotation.x, 0, 0);
         transform.eulerAngles = new Vector2(0, rotation.y);
     }
@@ -520,5 +524,14 @@ public class Player : MonoBehaviour
                 spendMana(rangedAttack.ManaCost);
             }
         }
+    }
+
+    private void setDefaultHealthAndMana()
+    {
+        playerHealth = 0.0f;
+        playerMana = 0.0f;
+
+        playerHealthRegeneration = 0.0f;
+        playerManaRegeneration = 0.0f;
     }
 }

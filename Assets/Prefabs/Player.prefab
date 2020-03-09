@@ -212,8 +212,6 @@ MonoBehaviour:
   cameraParent: {fileID: 8993189138350297945}
   basicMaterial: {fileID: 2100000, guid: a8b701df5c732144aa614107ca60018c, type: 2}
   hurtMaterial: {fileID: 2100000, guid: 418f1f54213153140a0e772dc9254e80, type: 2}
-  isBoostPickedUp: 0
-  hasKilledBoss: 0
   playerStats: {fileID: 0}
   playerHealth: 0
   playerMaxHealth: 100
@@ -231,6 +229,9 @@ MonoBehaviour:
   playerCurrentExpText: {fileID: 0}
   rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
     type: 3}
+  isBoostPickedUp: 0
+  hasKilledBoss: 0
+  DeathScreen: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0
