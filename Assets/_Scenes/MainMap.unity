@@ -4753,11 +4753,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2328961099159298965, guid: b7ab4cefe49583e44b0665f411c1b2e7,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7ab4cefe49583e44b0665f411c1b2e7, type: 3}
 --- !u!1001 &1217992529
