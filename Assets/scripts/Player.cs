@@ -110,6 +110,8 @@ public class Player : MonoBehaviour
     private Slider playerExperienceBar;
     [SerializeField]
     private Text playerCurrentLevelText;
+    [SerializeField]
+    private Text playerCurrentExpText;
     #endregion
 
     #region Ranged Attack
@@ -366,6 +368,7 @@ public class Player : MonoBehaviour
     {
         playerExperiencePoints += amount;
         playerExperienceBar.value = playerExperiencePoints;
+        updatePlayerExperienceAmountText();
 
         if (playerExperiencePoints >= playerExperienceNeeded)
         {
@@ -378,6 +381,8 @@ public class Player : MonoBehaviour
         playerExperienceBar.value = 0;
         playerExperienceNeeded += 5;
         playerExperienceBar.maxValue = playerExperienceNeeded;
+        playerCurrentExpText.text = playerExperiencePoints + "/" + playerExperienceNeeded;
+        updatePlayerExperienceAmountText();
 
         playerLevel += 1;
         playerCurrentLevelText.text = "Level: " + playerLevel.ToString();
@@ -389,6 +394,8 @@ public class Player : MonoBehaviour
 
         playerManaRegeneration += playerManaRegenerationGrowAmount;
         playerHealthRegeneration += playerHealthRegenerationGrowAmount;
+
+
         updatePlayerStatsUI();
     }
 
@@ -410,6 +417,13 @@ public class Player : MonoBehaviour
         playerExperienceBar.value = playerExperiencePoints;
         playerExperienceBar.maxValue = playerExperienceNeeded;
         playerCurrentLevelText.text = "Level: " + playerLevel;
+
+        updatePlayerExperienceAmountText();
+    }
+
+    private void updatePlayerExperienceAmountText()
+    {
+        playerCurrentExpText.text = playerExperiencePoints + "/" + playerExperienceNeeded;
     }
     private void updatePlayerStatsUI()
     {

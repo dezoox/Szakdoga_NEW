@@ -228,6 +228,7 @@ MonoBehaviour:
   playerExperienceNeeded: 0
   playerExperienceBar: {fileID: 0}
   playerCurrentLevelText: {fileID: 0}
+  playerCurrentExpText: {fileID: 0}
   rangedAttack: {fileID: 3405982927638526843, guid: ef6eb73dd685ebf46b46edec495b4730,
     type: 3}
 --- !u!65 &169991887
