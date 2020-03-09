@@ -360,11 +360,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_spawn
       objectReference: {fileID: 0}
-    - target: {fileID: 503111067031055824, guid: a7ef2b5ebe17d84418f7790f11c06b03,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 503111067031055836, guid: a7ef2b5ebe17d84418f7790f11c06b03,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2431,7 +2426,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3403206247017531257, guid: b7ab4cefe49583e44b0665f411c1b2e7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b7ab4cefe49583e44b0665f411c1b2e7, type: 3}
 --- !u!1001 &631544088
 PrefabInstance:

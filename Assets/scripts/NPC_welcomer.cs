@@ -63,7 +63,7 @@ public class NPC_welcomer : MonoBehaviour
             {
                 ActivateTextForSeconds(level2Congrat_text, 30.0f);
             }
-            if(player.PlayerLevel == 3 && !player.IsBoostPickedUp)
+            if (player.PlayerLevel == 3 && !player.IsBoostPickedUp)
             {
                 ActivateTextForSeconds(level3_text, 30.0f);
             }
@@ -84,8 +84,10 @@ public class NPC_welcomer : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            transform.LookAt(other.gameObject.transform);
-            transform.rotation = new Quaternion(0, other.gameObject.transform.rotation.y, 0, 0);
+            if (Vector3.Distance(other.transform.position, this.transform.position) > 1f)
+            {
+                transform.LookAt(other.transform);
+            }
         }
     }
 

@@ -179,10 +179,10 @@ public class Player : MonoBehaviour
         string tag = other.tag;
         if (tag == "Enemy")
         {
+            Enemy enemy = other.GetComponent<Enemy>();
             timer += Time.deltaTime;
             if (timer > attackSpeed)
             {
-                Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
                     enemy.DamageEnemy(playerDamage);
@@ -192,10 +192,10 @@ public class Player : MonoBehaviour
         }
         if (tag == "PatrollingEnemy")
         {
+            PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
             timer += Time.deltaTime;
             if (timer > attackSpeed)
             {
-                PatrollingEnemy enemy = other.GetComponent<PatrollingEnemy>();
                 if (enemy != null)
                 {
                     enemy.DamageEnemy(playerDamage);
@@ -206,9 +206,9 @@ public class Player : MonoBehaviour
         if (tag == "Boss")
         {
             timer += Time.deltaTime;
+            BOSS boss = other.GetComponent<BOSS>();
             if (timer > attackSpeed)
             {
-                BOSS boss = other.GetComponent<BOSS>();
                 if (boss != null)
                 {
                     boss.DamageEnemy(playerDamage);
@@ -243,11 +243,9 @@ public class Player : MonoBehaviour
         }
         if (tag == "HealthPotion")
         {
-            Debug.Log("OnTriggerEnter lefutot hp potira");
             heal(other, true);
         }
     }
-
 
     private void heal(Collider other, bool isPotion)
     {
