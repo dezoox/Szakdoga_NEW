@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject pauseCanvas;
+    public bool isPauseScreenActive;
 
     #region Player and camera movement
     private Vector3 spawnPosition = new Vector3(142.3f, 1f, 627.4f);
@@ -149,6 +152,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        
+
         regenerateManaAndHealth();
         displayManaAndHealth();
         Movement();
@@ -160,6 +165,13 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             DamagePlayer(50);
+        }
+
+        isPauseScreenActive = pauseCanvas.activeInHierarchy;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseCanvas.SetActive(!isPauseScreenActive);
+            Time.timeScale = isPauseScreenActive ? 1f : 0f;
         }
     }
     private void Movement()

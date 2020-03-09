@@ -232,6 +232,7 @@ MonoBehaviour:
   isBoostPickedUp: 0
   hasKilledBoss: 0
   DeathScreen: {fileID: 0}
+  pauseCanvas: {fileID: 0}
 --- !u!65 &169991887
 BoxCollider:
   m_ObjectHideFlags: 0
