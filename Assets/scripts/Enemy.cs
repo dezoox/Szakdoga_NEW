@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour, IEnemy
     private float enemyMaxHealth = 100;
     [SerializeField]
     private int enemyDamage;
-    private float timeBetweenAttacks = 1.3f;
+    private float timeBetweenAttacks = 1.7f;
     private float timer = 0;
     public GameObject dropHealth;
     [SerializeField]
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour, IEnemy
         if (other.tag == "Player")
         {
             standingPosition = transform.position;
-            transform.LookAt(other.transform.position);
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(player.transform.position), 0.1f);
             DisableMovement();
             timer += Time.deltaTime;
             if (timer > timeBetweenAttacks)

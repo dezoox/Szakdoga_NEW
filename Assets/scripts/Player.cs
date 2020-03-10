@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     int condIdle = 0;
     int condWalk = 1;
     int condAttack = 2;
+    int condDamaged = 3;
     #endregion
     #region PauseGame
     [SerializeField]
@@ -333,6 +334,7 @@ public class Player : MonoBehaviour
 
     public void DamagePlayer(int damageAmount)
     {
+        animator.SetInteger("condition", condDamaged);
         playerHealth -= damageAmount;
         rescaleHealthBar();
 
