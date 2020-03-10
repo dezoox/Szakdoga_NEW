@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region PauseGame
     [SerializeField]
     private GameObject pauseCanvas;
     public bool isPauseScreenActive;
+    #endregion
 
     #region Player and camera movement
     private Vector3 spawnPosition = new Vector3(142.3f, 1f, 627.4f);
@@ -20,12 +22,6 @@ public class Player : MonoBehaviour
     private float timer = 0;
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
-    #endregion
-
-    #region Player materials
-    //public Material basicMaterial;
-    //public Material hurtMaterial;
-    private Renderer rend;
     #endregion
 
     #region Player Stats
@@ -132,6 +128,10 @@ public class Player : MonoBehaviour
     private GameObject DeathScreen;
     #endregion
 
+    #region Animation
+    private Animator animator;
+    #endregion
+
     void Start()
     {
         FindComponents();
@@ -144,15 +144,15 @@ public class Player : MonoBehaviour
     }
     private void FindComponents()
     {
+        animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         boostLight = GameObject.Find("Boost_Light");
-        rend = GetComponent<Renderer>();
         canRangedAttack = GameObject.FindGameObjectWithTag("RangedAttackIcon").GetComponent<Image>();
     }
 
     void Update()
     {
-        
+
         displayManaAndHealth();
         Movement();
         decideRangedAttackIconColor();
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
         {
             DamagePlayer(50);
         }
-        
+
     }
     private void Movement()
     {
@@ -320,10 +320,6 @@ public class Player : MonoBehaviour
     {
         playerHealth -= damageAmount;
         rescaleHealthBar();
-        if (rend != null)
-        {
-            StartCoroutine(ChangeMaterial());
-        }
         if (playerHealth < 1)
         {
             setDefaultHealthAndMana();
@@ -365,13 +361,6 @@ public class Player : MonoBehaviour
     private void rescaleHealthBar()
     {
         Healthbar.transform.localScale = new Vector3(playerHealth / playerMaxHealth, 1.0f, 1.0f);
-    }
-
-    IEnumerator ChangeMaterial()
-    {
-        //rend.material = hurtMaterial;
-        yield return new WaitForSeconds(1.0f);
-        //rend.material = basicMaterial;
     }
 
     public void GetExperience(int amount)
