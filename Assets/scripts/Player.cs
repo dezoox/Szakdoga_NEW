@@ -23,8 +23,8 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Player materials
-    public Material basicMaterial;
-    public Material hurtMaterial;
+    //public Material basicMaterial;
+    //public Material hurtMaterial;
     private Renderer rend;
     #endregion
 
@@ -369,9 +369,9 @@ public class Player : MonoBehaviour
 
     IEnumerator ChangeMaterial()
     {
-        rend.material = hurtMaterial;
+        //rend.material = hurtMaterial;
         yield return new WaitForSeconds(1.0f);
-        rend.material = basicMaterial;
+        //rend.material = basicMaterial;
     }
 
     public void GetExperience(int amount)
