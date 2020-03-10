@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region Conditions
+    int condIdle = 0;
+    int condWalk = 1;
+    int condAttack = 2;
+    #endregion
     #region PauseGame
     [SerializeField]
     private GameObject pauseCanvas;
@@ -22,12 +27,12 @@ public class Player : MonoBehaviour
     private float timer = 0;
     private bool isCameraRotates = false;
     private float mouseSpeed = 50.0f;
+    private float movementSpeed = 5.0f;
     #endregion
 
     #region Player Stats
     [SerializeField]
     private GameObject playerStats;
-    private float movementSpeed = 10.0f;
     private float attackSpeed = 1f;
     private float playerDamage = 20f;
     private float playerManaRegeneration = 0.25f;
@@ -135,7 +140,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         FindComponents();
-
         rotation.y = transform.eulerAngles.y;
         transform.position = spawnPosition;
 
@@ -152,12 +156,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
         displayManaAndHealth();
         Movement();
+        if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetInteger("condition", condWalk);
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            animator.SetInteger("condition", condIdle);
+        }
+
         decideRangedAttackIconColor();
         showPlayerStatsIfKeyPressed(KeyCode.C);
         moveCameraIfButtonPressed(1);
+
         if (!isPauseScreenActive)
         {
             shootIfKeyDown(KeyCode.Alpha1);
@@ -165,23 +178,17 @@ public class Player : MonoBehaviour
         }
         isPauseScreenActive = pauseCanvas.activeInHierarchy;
         togglePauseGameOnKeypress(KeyCode.Escape);
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            DamagePlayer(50);
-        }
-
     }
     private void Movement()
     {
+
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         float Xspeed = movementSpeed * Input.GetAxis("Vertical");
         float Yspeed = movementSpeed * Input.GetAxis("Horizontal");
-        Yspeed /= 2;
         movement = (forward * Xspeed) + (right * Yspeed);
-
         movement.y -= gravity * Time.deltaTime;
+
         characterController.Move(movement * Time.deltaTime);
     }
 
@@ -196,8 +203,10 @@ public class Player : MonoBehaviour
             {
                 if (enemy != null)
                 {
+                    animator.SetInteger("condition", condAttack);
                     enemy.DamageEnemy(playerDamage);
                 }
+
                 timer = 0.0f;
             }
         }
@@ -209,8 +218,10 @@ public class Player : MonoBehaviour
             {
                 if (enemy != null)
                 {
+                    animator.SetInteger("condition", condAttack);
                     enemy.DamageEnemy(playerDamage);
                 }
+
                 timer = 0.0f;
             }
         }
@@ -222,11 +233,15 @@ public class Player : MonoBehaviour
             {
                 if (boss != null)
                 {
+                    animator.SetInteger("condition", condAttack);
                     boss.DamageEnemy(playerDamage);
                 }
+
                 timer = 0.0f;
             }
         }
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -320,6 +335,7 @@ public class Player : MonoBehaviour
     {
         playerHealth -= damageAmount;
         rescaleHealthBar();
+
         if (playerHealth < 1)
         {
             setDefaultHealthAndMana();

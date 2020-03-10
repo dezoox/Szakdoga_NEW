@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour, IEnemy
         if (other.tag == "Player")
         {
             standingPosition = transform.position;
-            transform.LookAt(other.transform);
+            transform.LookAt(other.transform.position);
             DisableMovement();
             timer += Time.deltaTime;
             if (timer > timeBetweenAttacks)
