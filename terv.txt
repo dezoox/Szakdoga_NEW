@@ -62,3 +62,7 @@ TODO:
 -nézelődő ellenfé (guard)
 -patrolling enemy ha észrevesz, és jön a játékos felé, navmeshel kikerüli ami előtte van
 
+TODO:
+-assetek
+-effekteket megnézni a medieval buildings packból (DemoScene hátha segít)
+-MainMenu ujratervezés, nincs background, csak két gomb meg karakter szembe áll pl (skybox)
