@@ -556,8 +556,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(key))
         {
-            Time.timeScale = isPauseScreenActive ? 1f : 0f;
             isPauseScreenActive = !isPauseScreenActive;
+            Time.timeScale = isPauseScreenActive ? 0f : 1f;
             pauseCanvas.SetActive(isPauseScreenActive);
         }
     }
