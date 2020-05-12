@@ -1,10 +1,9 @@
-﻿using Assets.scripts.Interfaces;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BOSS : MonoBehaviour, IEnemy
+public class BOSS : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;

@@ -1,10 +1,8 @@
-﻿using Assets.scripts.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour, IEnemy
+public class Enemy : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;

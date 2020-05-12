@@ -1,5 +1,4 @@
-﻿using Assets.scripts.Interfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class PatrollingEnemy : MonoBehaviour, IEnemy
+public class PatrollingEnemy : MonoBehaviour
 {
     public Material basicMaterial;
     public Material hurtMaterial;

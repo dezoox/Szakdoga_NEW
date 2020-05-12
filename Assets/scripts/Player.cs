@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     int condAttack = 2;
     int condDamaged = 3;
     #endregion
+
     #region PauseGame
     [SerializeField]
     private GameObject pauseCanvas;
@@ -182,7 +183,6 @@ public class Player : MonoBehaviour
     }
     private void Movement()
     {
-
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         float Xspeed = movementSpeed * Input.GetAxis("Vertical");
@@ -241,8 +241,6 @@ public class Player : MonoBehaviour
                 timer = 0.0f;
             }
         }
-
-
     }
 
     private void OnTriggerEnter(Collider other)
