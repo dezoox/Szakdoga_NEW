@@ -8077,11 +8077,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3643256944538855447, guid: 77b85577a5266b64fa1d3071e96dff61,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0040032864
-      objectReference: {fileID: 0}
     - target: {fileID: 2709882200615886627, guid: 77b85577a5266b64fa1d3071e96dff61,
         type: 3}
       propertyPath: pauseCanvas
@@ -8152,6 +8147,11 @@ PrefabInstance:
       propertyPath: slots.Array.data[4]
       value: 
       objectReference: {fileID: 1902672225}
+    - target: {fileID: 3643256944538855447, guid: 77b85577a5266b64fa1d3071e96dff61,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0040032864
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77b85577a5266b64fa1d3071e96dff61, type: 3}
 --- !u!4 &1999880593 stripped
